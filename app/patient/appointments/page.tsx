@@ -190,23 +190,25 @@ export default function PatientAppointments() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-900">My Appointments</h1>
+        <h1 className="text-2xl font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>My Appointments</h1>
         <button
           onClick={() => setShowForm(!showForm)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm font-medium"
+          className="px-6 py-3 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] transition-colors"
+          style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}
         >
           {showForm ? 'Cancel' : 'Book New Appointment'}
         </button>
       </div>
 
       {showForm && !showPayment && (
-        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-          <h2 className="text-lg font-semibold mb-4">Book Appointment</h2>
+        <div className="bg-white p-6 border border-gray-100">
+          <h2 className="text-lg font-semibold text-[#333333] mb-4" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Book Appointment</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Select Doctor</label>
+              <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Select Doctor</label>
               <select required value={form.practitioner} onChange={handleDoctorSelect}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+                className="mt-1 block w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#001E42] text-sm"
+                style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}>
                 <option value="">Choose a doctor</option>
                 {doctorLoading ? <option>Loading...</option> :
                   doctors.map((d: any) => (
@@ -216,14 +218,15 @@ export default function PatientAppointments() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Date</label>
+                <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Date</label>
                 <input type="date" required value={form.appointment_date}
                   min={new Date().toISOString().split('T')[0]}
                   onChange={(e) => setForm({ ...form, appointment_date: e.target.value, appointment_time: '' })}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" />
+                  className="mt-1 block w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#001E42] text-sm"
+                  style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Time Slot</label>
+                <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Time Slot</label>
                 {form.practitioner && form.appointment_date ? (
                   availableSlots.length > 0 ? (
                     <div className="mt-1 grid grid-cols-2 gap-2">
@@ -232,41 +235,45 @@ export default function PatientAppointments() {
                           key={slot.from_time}
                           type="button"
                           onClick={() => setForm({ ...form, appointment_time: slot.from_time })}
-                          className={`px-3 py-2 text-sm rounded-md border transition-colors ${
+                          className={`px-3 py-2 text-sm border transition-colors ${
                             form.appointment_time === slot.from_time
-                              ? 'bg-blue-600 text-white border-blue-600'
-                              : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                              ? 'bg-[#001E42] text-white border-[#001E42]'
+                              : 'bg-white text-[#333333] border-gray-300 hover:bg-[#F4F7FA]'
                           }`}
+                          style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}
                         >
                           {formatTime(slot.from_time)}
                         </button>
                       ))}
                     </div>
                   ) : (
-                    <p className="mt-1 text-sm text-red-600">No slots available for this date</p>
+                    <p className="mt-1 text-sm text-[#E500BB]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>No slots available for this date</p>
                   )
                 ) : (
-                  <p className="mt-1 text-sm text-gray-500">Select a doctor and date first</p>
+                  <p className="mt-1 text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Select a doctor and date first</p>
                 )}
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Type</label>
+              <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Type</label>
               <select value={form.appointment_type}
                 onChange={(e) => setForm({ ...form, appointment_type: e.target.value })}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+                className="mt-1 block w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#001E42] text-sm"
+                style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}>
                 <option>General Consultation</option>
                 <option>Follow-up</option>
                 <option>Emergency</option>
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Notes</label>
+              <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Notes</label>
               <textarea value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" rows={3} />
+                className="mt-1 block w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#001E42] text-sm"
+                style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }} rows={3} />
             </div>
             <button type="submit" disabled={createAppointment.isPending}
-              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50">
+              className="px-6 py-3 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] disabled:opacity-50 transition-colors"
+              style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
               {createAppointment.isPending ? 'Booking...' : 'Review & Pay'}
             </button>
           </form>
@@ -287,30 +294,30 @@ export default function PatientAppointments() {
         />
       )}
 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">All Appointments</h2>
+      <div className="bg-white border border-gray-100">
+        <div className="px-6 py-4 border-b border-gray-100">
+          <h2 className="text-lg font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>All Appointments</h2>
         </div>
-        <div className="divide-y divide-gray-200">
+        <div className="divide-y divide-gray-100">
           {apptLoading ? <LoadingSpinner className="py-8" /> :
-           appointments.length === 0 ? <p className="px-6 py-8 text-center text-gray-500">No appointments found</p> :
+           appointments.length === 0 ? <p className="px-6 py-8 text-center text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>No appointments found</p> :
            appointments.map((appt: any) => (
-             <Link key={appt.name} href={`/patient/appointments/${appt.name}`} className="block px-6 py-4 hover:bg-gray-50 transition-colors">
+             <Link key={appt.name} href={`/patient/appointments/${appt.name}`} className="block px-6 py-4 hover:bg-[#F4F7FA] transition-colors">
                <div className="flex items-center justify-between">
                  <div>
-                   <p className="font-medium text-gray-900">{appt.practitioner_name}</p>
-                   <p className="text-sm text-gray-500">{appt.department} | {appt.appointment_type}</p>
+                   <p className="font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appt.practitioner_name}</p>
+                   <p className="text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appt.department} | {appt.appointment_type}</p>
                  </div>
                  <div className="text-right">
-                   <p className="text-sm font-medium text-gray-900">{appt.appointment_date}</p>
-                   <p className="text-sm text-gray-500">{appt.appointment_time}</p>
+                   <p className="text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appt.appointment_date}</p>
+                   <p className="text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appt.appointment_time}</p>
                  </div>
-                 <span className={`px-3 py-1 text-xs font-medium rounded-full ${
-                   appt.status === 'Scheduled' ? 'bg-blue-100 text-blue-800' :
-                   appt.status === 'Closed' ? 'bg-green-100 text-green-800' :
-                   appt.status === 'Cancelled' ? 'bg-red-100 text-red-800' :
-                   'bg-gray-100 text-gray-800'
-                 }`}>{appt.status}</span>
+                 <span className={`px-3 py-1 text-xs font-semibold ${
+                   appt.status === 'Scheduled' ? 'bg-[#F2F8F5] text-[#001E42]' :
+                   appt.status === 'Closed' ? 'bg-[#F2F8F5] text-[#001E42]' :
+                   appt.status === 'Cancelled' ? 'bg-[#FCE7EC] text-[#E500BB]' :
+                   'bg-[#F4F7FA] text-[#6C7087]'
+                 }`} style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appt.status}</span>
                </div>
              </Link>
            ))}

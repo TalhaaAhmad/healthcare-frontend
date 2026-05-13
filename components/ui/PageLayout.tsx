@@ -1,6 +1,6 @@
 'use client';
 
-import { Navbar } from './Navbar';
+import { Sidebar } from './Sidebar';
 
 interface PageLayoutProps {
   children: React.ReactNode;
@@ -10,9 +10,9 @@ interface PageLayoutProps {
 
 export function PageLayout({ children, navItems, portalName }: PageLayoutProps) {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar items={navItems} portalName={portalName} />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="min-h-screen bg-[#F4F7FA] flex">
+      <Sidebar items={navItems} portalName={portalName} />
+      <main className="flex-1 ml-[260px] px-8 py-8">
         {children}
       </main>
     </div>
