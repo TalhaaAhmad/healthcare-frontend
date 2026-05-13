@@ -28,24 +28,7 @@ export default function RegisterPage() {
     setError('');
 
     try {
-      // Create Patient
-      const patientRes = await fetch('/api/frappe/resource/Patient', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...form,
-          patient_name: `${form.first_name} ${form.last_name}`,
-          status: 'Active',
-        }),
-      });
-
-      if (!patientRes.ok) {
-        const err = await patientRes.json();
-        setError(err.error || 'Registration failed');
-        return;
-      }
-
-      // Create User
+      // 1. Create User first (with password)
       const userRes = await fetch('/api/frappe/resource/User', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -56,12 +39,31 @@ export default function RegisterPage() {
           send_welcome_email: 0,
           user_type: 'Website User',
           roles: [{ role: 'Patient' }],
+          new_password: form.password,
         }),
       });
 
-      if (!userRes.ok) {
+      if (!userRes.ok && userRes.status !== 409) {
         const err = await userRes.json();
         setError(err.error || 'User creation failed');
+        return;
+      }
+
+      // 2. Create Patient linked to the User
+      const patientRes = await fetch('/api/frappe/resource/Patient', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...form,
+          patient_name: `${form.first_name} ${form.last_name}`,
+          status: 'Active',
+          user_id: form.email,
+        }),
+      });
+
+      if (!patientRes.ok) {
+        const err = await patientRes.json();
+        setError(err.error || 'Registration failed');
         return;
       }
 
@@ -150,14 +152,14 @@ export default function RegisterPage() {
             <select name="blood_group" value={form.blood_group} onChange={handleChange}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
               <option value="">Select</option>
-              <option>A+</option>
-              <option>A-</option>
-              <option>B+</option>
-              <option>B-</option>
-              <option>AB+</option>
-              <option>AB-</option>
-              <option>O+</option>
-              <option>O-</option>
+              <option value="A Positive">A+</option>
+              <option value="A Negative">A-</option>
+              <option value="B Positive">B+</option>
+              <option value="B Negative">B-</option>
+              <option value="AB Positive">AB+</option>
+              <option value="AB Negative">AB-</option>
+              <option value="O Positive">O+</option>
+              <option value="O Negative">O-</option>
             </select>
           </div>
 
