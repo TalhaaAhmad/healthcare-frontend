@@ -10,11 +10,11 @@ interface ProtectedRouteProps {
 }
 
 export function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) {
-  const { isAuthenticated, isLoading, user, patientId, practitionerId } = useAuth();
+  const { isAuthenticated, isLoading, user, patientId } = useAuth();
 
   useEffect(() => {
-    console.log('[ProtectedRoute] isLoading:', isLoading, 'isAuthenticated:', isAuthenticated, 'patientId:', patientId, 'practitionerId:', practitionerId);
-  }, [isLoading, isAuthenticated, patientId, practitionerId]);
+    console.log('[ProtectedRoute] isLoading:', isLoading, 'isAuthenticated:', isAuthenticated, 'patientId:', patientId);
+  }, [isLoading, isAuthenticated, patientId]);
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -26,11 +26,9 @@ export function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) 
   useEffect(() => {
     if (!isLoading && isAuthenticated && allowedRoles) {
       const isPatient = patientId || user?.roles?.includes('Patient');
-      const isPractitioner = practitionerId || user?.roles?.includes('Healthcare Practitioner') || user?.roles?.includes('Practitioner');
 
       const hasAccess = allowedRoles.some((role) => {
         if (role === 'Patient') return isPatient;
-        if (role === 'Healthcare Practitioner' || role === 'Practitioner') return isPractitioner;
         return user?.roles?.includes(role);
       });
 
@@ -39,7 +37,7 @@ export function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) 
         window.location.href = '/login';
       }
     }
-  }, [isLoading, isAuthenticated, allowedRoles, user, patientId, practitionerId]);
+  }, [isLoading, isAuthenticated, allowedRoles, user, patientId]);
 
   if (isLoading) {
     return (
@@ -55,10 +53,8 @@ export function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) 
 
   if (allowedRoles) {
     const isPatient = patientId || user?.roles?.includes('Patient');
-    const isPractitioner = practitionerId || user?.roles?.includes('Healthcare Practitioner') || user?.roles?.includes('Practitioner');
     const hasAccess = allowedRoles.some((role) => {
       if (role === 'Patient') return isPatient;
-      if (role === 'Healthcare Practitioner' || role === 'Practitioner') return isPractitioner;
       return user?.roles?.includes(role);
     });
     if (!hasAccess) {

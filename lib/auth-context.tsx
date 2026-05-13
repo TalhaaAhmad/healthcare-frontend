@@ -12,7 +12,6 @@ export interface AuthUser {
 export interface AuthState {
   user: AuthUser | null;
   patientId: string | null;
-  practitionerId: string | null;
   isLoading: boolean;
   isAuthenticated: boolean;
 }
@@ -32,7 +31,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<AuthState>({
     user: null,
     patientId: null,
-    practitionerId: null,
     isLoading: true,
     isAuthenticated: false,
   });
@@ -56,7 +54,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setState({
           user: null,
           patientId: null,
-          practitionerId: null,
           isLoading: false,
           isAuthenticated: false,
         });
@@ -76,7 +73,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setState({
           user: null,
           patientId: null,
-          practitionerId: null,
           isLoading: false,
           isAuthenticated: false,
         });
@@ -89,7 +85,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const roles = user.roles?.map((r: any) => r.role) || [];
 
       let patientId = null;
-      let practitionerId = null;
 
       // Use API Key auth for DocType lookups (the logged-in user may not have
       // permission to read Patient/Healthcare Practitioner via REST API).
@@ -102,7 +97,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (lookupRes.ok) {
         const lookupData = await lookupRes.json();
         patientId = lookupData.patientId || null;
-        practitionerId = lookupData.practitionerId || null;
       }
 
       setState({
@@ -113,7 +107,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           roles,
         },
         patientId,
-        practitionerId,
         isLoading: false,
         isAuthenticated: true,
       });
@@ -122,7 +115,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setState({
         user: null,
         patientId: null,
-        practitionerId: null,
+        
         isLoading: false,
         isAuthenticated: false,
       });
@@ -169,7 +162,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setState({
         user: null,
         patientId: null,
-        practitionerId: null,
+        
         isLoading: false,
         isAuthenticated: false,
       });

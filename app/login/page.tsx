@@ -9,21 +9,15 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const { login, isAuthenticated, user, isLoading, patientId, practitionerId } = useAuth();
+  const { login, isAuthenticated, user, isLoading, patientId } = useAuth();
 
   // Redirect if already authenticated
   useEffect(() => {
     if (!isLoading && isAuthenticated && user) {
-      // Use patientId/practitionerId from auth context (set by checkSession)
+      // Use patientId from auth context (set by checkSession)
       // rather than relying solely on Frappe roles
-      if (patientId) {
+      if (patientId || user.roles?.includes('Patient')) {
         window.location.href = '/patient/dashboard';
-      } else if (practitionerId) {
-        window.location.href = '/practitioner/dashboard';
-      } else if (user.roles?.includes('Patient')) {
-        window.location.href = '/patient/dashboard';
-      } else if (user.roles?.includes('Healthcare Practitioner') || user.roles?.includes('Practitioner')) {
-        window.location.href = '/practitioner/dashboard';
       } else {
         window.location.href = '/';
       }

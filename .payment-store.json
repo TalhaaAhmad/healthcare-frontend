@@ -102,57 +102,5 @@
     "notes": "",
     "amount": 10,
     "createdAt": 1778673699669
-  },
-  "AMP477Z8G": {
-    "patient": "Muhammad Khan",
-    "patient_name": "Muhammad Khan",
-    "practitioner": "HLC-PRAC-2026-00001",
-    "practitioner_name": "Talha Ahmad",
-    "department": "Cardiology",
-    "appointment_date": "2026-05-18",
-    "appointment_time": "10:30:00",
-    "appointment_type": "General Consultation",
-    "notes": "",
-    "amount": 10,
-    "createdAt": 1778685162925
-  },
-  "AMP47D48E": {
-    "patient": "Muhammad Khan",
-    "patient_name": "Muhammad Khan",
-    "practitioner": "HLC-PRAC-2026-00001",
-    "practitioner_name": "Talha Ahmad",
-    "department": "Cardiology",
-    "appointment_date": "2026-05-18",
-    "appointment_time": "9:00:00",
-    "appointment_type": "General Consultation",
-    "notes": "",
-    "amount": 10,
-    "createdAt": 1778685402737
-  },
-  "AMP47ILC1": {
-    "patient": "Muhammad Khan",
-    "patient_name": "Muhammad Khan",
-    "practitioner": "HLC-PRAC-2026-00001",
-    "practitioner_name": "Talha Ahmad",
-    "department": "Cardiology",
-    "appointment_date": "2026-05-18",
-    "appointment_time": "11:30:00",
-    "appointment_type": "General Consultation",
-    "notes": "",
-    "amount": 10,
-    "createdAt": 1778685658045
-  },
-  "AMP47OLHD": {
-    "patient": "Muhammad Khan",
-    "patient_name": "Muhammad Khan",
-    "practitioner": "HLC-PRAC-2026-00001",
-    "practitioner_name": "Talha Ahmad",
-    "department": "Cardiology",
-    "appointment_date": "2026-05-18",
-    "appointment_time": "11:00:00",
-    "appointment_type": "General Consultation",
-    "notes": "",
-    "amount": 10,
-    "createdAt": 1778685938282
   }
 }
