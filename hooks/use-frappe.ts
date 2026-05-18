@@ -202,13 +202,27 @@ export function useLiveAppointments(patientId: string) {
   return useQuery({
     queryKey: ['Patient Appointment', 'live', patientId],
     queryFn: () => frappeClient.get('/resource/Patient Appointment', {
-      fields: ['name', 'patient', 'practitioner_name', 'department', 'appointment_date', 'appointment_time', 'status', 'title'],
+      fields: ['name', 'patient', 'patient_name', 'practitioner_name', 'department', 'appointment_date', 'appointment_time', 'status', 'title'],
       filters: [['patient', '=', patientId]],
       order_by: 'creation desc',
       limit_page_length: 10,
     }),
     enabled: !!patientId,
     refetchInterval: 30000, // 30 seconds
+  });
+}
+
+// Fetch all appointments for a user and their relatives (by email)
+export function useUserAppointments(email: string) {
+  return useQuery({
+    queryKey: ['Patient Appointment', 'user', email],
+    queryFn: async () => {
+      const res = await fetch(`/api/patient/appointments?email=${encodeURIComponent(email)}`);
+      if (!res.ok) throw new Error('Failed to fetch appointments');
+      return res.json();
+    },
+    enabled: !!email,
+    refetchInterval: 30000,
   });
 }
 

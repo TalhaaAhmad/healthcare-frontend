@@ -1,14 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { useLiveAppointments } from '@/hooks/use-frappe';
+import { useUserAppointments } from '@/hooks/use-frappe';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { useAuth } from '@/lib/auth-context';
 import { useEffect } from 'react';
 
 export default function PatientDashboard() {
-  const { patientId, isLoading: authLoading } = useAuth();
-  const { data, isLoading: dataLoading, error } = useLiveAppointments(patientId || '');
+  const { patientId, user, isLoading: authLoading } = useAuth();
+  const { data, isLoading: dataLoading, error } = useUserAppointments(user?.email || '');
 
   const appointments = data?.data || [];
   const upcoming = appointments.filter((a: any) => a.status === 'Scheduled' || a.status === 'Confirmed');
@@ -95,6 +95,9 @@ export default function PatientDashboard() {
                 <div>
                   <p className="font-medium text-sm sm:text-base text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appt.practitioner_name}</p>
                   <p className="text-xs sm:text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appt.department}</p>
+                  {appt.patient_name && appt.patient_name !== user?.full_name && (
+                    <p className="text-xs text-[#E500BB] font-medium mt-0.5" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>for {appt.patient_name}</p>
+                  )}
                 </div>
                 <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-6">
                   <div className="text-left sm:text-right">

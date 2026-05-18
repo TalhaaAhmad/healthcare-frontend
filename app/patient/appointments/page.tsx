@@ -1,14 +1,14 @@
 'use client';
 
-import { useLiveAppointments } from '@/hooks/use-frappe';
+import { useUserAppointments } from '@/hooks/use-frappe';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { useAuth } from '@/lib/auth-context';
 import Link from 'next/link';
 
 export default function PatientAppointments() {
-  const { patientId } = useAuth();
+  const { user } = useAuth();
 
-  const { data: apptData, isLoading: apptLoading } = useLiveAppointments(patientId || '');
+  const { data: apptData, isLoading: apptLoading } = useUserAppointments(user?.email || '');
   const appointments = apptData?.data || [];
 
   return (
@@ -37,6 +37,9 @@ export default function PatientAppointments() {
                  <div>
                    <p className="font-medium text-sm sm:text-base text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appt.practitioner_name}</p>
                    <p className="text-xs sm:text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appt.department} | {appt.appointment_type}</p>
+                   {appt.patient_name && appt.patient_name !== user?.full_name && (
+                     <p className="text-xs text-[#E500BB] font-medium mt-0.5" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>for {appt.patient_name}</p>
+                   )}
                  </div>
                  <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-6">
                    <div className="text-left sm:text-right">

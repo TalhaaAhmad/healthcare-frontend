@@ -54,7 +54,7 @@ export async function GET(request: NextRequest) {
 
   try {
     const frappe = getFrappeServerClient();
-    const {
+    let {
       patient,
       patient_name,
       practitioner,
@@ -65,7 +65,48 @@ export async function GET(request: NextRequest) {
       appointment_type,
       notes,
       amount,
+      relative,
+      booked_by_name,
     } = appointmentData;
+
+    // If booking for a relative, create the Patient record first
+    if (relative && relative.first_name && relative.last_name) {
+      try {
+        const relativeRes = await frappe.post('/resource/Patient', {
+          first_name: relative.first_name,
+          last_name: relative.last_name,
+          patient_name: `${relative.first_name} ${relative.last_name}`,
+          sex: relative.sex,
+          dob: relative.dob,
+          blood_group: relative.blood_group || undefined,
+          mobile: relative.mobile,
+          status: 'Active',
+          user_id: appointmentData.booked_by || '',
+        });
+        const createdPatient = relativeRes.data?.data;
+        if (createdPatient?.name) {
+          patient = createdPatient.name;
+          patient_name = createdPatient.patient_name || `${relative.first_name} ${relative.last_name}`;
+          console.log('[PayFast Success] Created relative patient:', patient);
+        }
+      } catch (relativeErr: any) {
+        // If creation failed, try to find existing patient by name + mobile
+        console.error('[PayFast Success] Relative patient creation failed, trying lookup:', relativeErr?.response?.data || relativeErr.message);
+        try {
+          const lookupRes = await frappe.get(
+            `/resource/Patient?fields=["name","patient_name"]&filters=[["patient_name","=","${relative.first_name} ${relative.last_name}"],["mobile","=","${relative.mobile}"]]`
+          );
+          if (lookupRes.data?.data?.length > 0) {
+            const existing = lookupRes.data.data[0];
+            patient = existing.name;
+            patient_name = existing.patient_name;
+            console.log('[PayFast Success] Found existing relative patient:', patient);
+          }
+        } catch {
+          console.error('[PayFast Success] Could not find existing relative patient either');
+        }
+      }
+    }
 
     if (!patient || !practitioner) {
       return NextResponse.redirect(
