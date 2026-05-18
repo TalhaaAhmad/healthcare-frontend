@@ -259,6 +259,10 @@ export default function AppointmentDetail() {
             <p className="text-sm text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appointment.duration} min</p>
           </div>
           <div className="sm:col-span-2">
+            <p className="text-xs font-medium text-[#6C7087] uppercase" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Patient</p>
+            <p className="text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appointment.patient_name}</p>
+          </div>
+          <div className="sm:col-span-2">
             <p className="text-xs font-medium text-[#6C7087] uppercase" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Notes</p>
             <p className="text-sm text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appointment.notes || '—'}</p>
           </div>

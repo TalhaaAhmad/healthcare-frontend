@@ -65,6 +65,16 @@ export interface PatientAppointment {
   reminded?: number;
 }
 
+export interface RelativePatientData {
+  first_name: string;
+  last_name: string;
+  sex: 'Male' | 'Female' | 'Other';
+  dob: string;
+  blood_group?: string;
+  mobile: string;
+  relationship: 'Son' | 'Daughter' | 'Wife' | 'Husband' | 'Brother' | 'Sister' | 'Mother' | 'Father';
+}
+
 export interface AppointmentBookingData {
   patient: string;
   patient_name: string;
@@ -80,6 +90,9 @@ export interface AppointmentBookingData {
   mode_of_payment?: string;
   paid_amount?: number;
   service_unit?: string;
+  relative?: RelativePatientData;
+  booked_by?: string;
+  booked_by_name?: string;
 }
 
 // Patient Encounter Types

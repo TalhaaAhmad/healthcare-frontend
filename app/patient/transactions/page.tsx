@@ -1,14 +1,14 @@
 'use client';
 
-import { useLiveAppointments } from '@/hooks/use-frappe';
+import { useUserAppointments } from '@/hooks/use-frappe';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { useAuth } from '@/lib/auth-context';
 import Link from 'next/link';
 
 export default function TransactionHistory() {
-  const { patientId } = useAuth();
+  const { user } = useAuth();
 
-  const { data: apptData, isLoading } = useLiveAppointments(patientId || '');
+  const { data: apptData, isLoading } = useUserAppointments(user?.email || '');
   const appointments = apptData?.data || [];
 
   // Treat all appointments as transactions (they all require payment)
@@ -59,6 +59,9 @@ export default function TransactionHistory() {
                     <p className="text-xs sm:text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
                       {tx.department} | {tx.type}
                     </p>
+                    {tx.patient_name && tx.patient_name !== user?.full_name && (
+                      <p className="text-xs text-[#E500BB] font-medium mt-0.5" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>for {tx.patient_name}</p>
+                    )}
                   </div>
                   <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-6">
                     <div className="text-left sm:text-right">

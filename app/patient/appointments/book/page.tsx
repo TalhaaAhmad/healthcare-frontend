@@ -49,6 +49,7 @@ export default function BookAppointmentPage() {
 
   const { patientId, user } = useAuth();
   const patientName = user?.full_name || '';
+  const userEmail = user?.email || '';
 
   const { data: doctorData, isLoading: doctorLoading } = useDoctorList();
   const doctors = doctorData?.data || [];
@@ -63,6 +64,17 @@ export default function BookAppointmentPage() {
     appointment_time: '',
     appointment_type: 'General Consultation',
     notes: '',
+    patient_type: 'self' as 'self' | 'relative',
+  });
+
+  const [relative, setRelative] = useState({
+    first_name: '',
+    last_name: '',
+    sex: 'Male' as 'Male' | 'Female' | 'Other',
+    dob: '',
+    blood_group: '',
+    mobile: '',
+    relationship: 'Son' as 'Son' | 'Daughter' | 'Wife' | 'Husband' | 'Brother' | 'Sister' | 'Mother' | 'Father',
   });
 
   // Calendar state — must be before any conditional returns
@@ -125,7 +137,8 @@ export default function BookAppointmentPage() {
   async function handlePay() {
     setIsPaying(true);
     try {
-      const appointmentData = {
+      const isRelative = form.patient_type === 'relative';
+      const appointmentData: any = {
         patient: patientId,
         patient_name: patientName,
         practitioner: form.practitioner,
@@ -136,7 +149,14 @@ export default function BookAppointmentPage() {
         appointment_type: form.appointment_type,
         notes: form.notes,
         amount: CONSULTATION_FEE,
+        booked_by: userEmail,
+        booked_by_name: patientName,
       };
+
+      if (isRelative) {
+        appointmentData.relative = { ...relative };
+      }
+
       const paymentAmount = CONSULTATION_FEE.toFixed(2);
 
       const basketId = `A${Date.now().toString(36).toUpperCase().slice(-8)}`;
@@ -352,14 +372,123 @@ export default function BookAppointmentPage() {
               <label className="block text-xs font-semibold uppercase tracking-[1px] text-[#6C7087] mb-2" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
                 Patient Profile
               </label>
-              <div className="w-full px-4 py-3 border border-gray-200 bg-white text-sm text-[#333333] flex items-center justify-between"
-                style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}>
-                <span>{patientName || 'Loading...'}</span>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#6C7087]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
+              <select
+                value={form.patient_type}
+                onChange={(e) => setForm({ ...form, patient_type: e.target.value as 'self' | 'relative' })}
+                className="w-full px-4 py-3 border border-gray-200 bg-white text-sm text-[#333333] focus:outline-none focus:border-[#001E42]"
+                style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}
+              >
+                <option value="self">Myself — {patientName || 'Loading...'}</option>
+                <option value="relative">Someone Else (Relative)</option>
+              </select>
             </div>
+
+            {/* Relative Details Form */}
+            {form.patient_type === 'relative' && (
+              <div className="space-y-4 border-t border-gray-100 pt-4">
+                <p className="text-xs font-semibold uppercase tracking-[1px] text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+                  Relative Details
+                </p>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs text-[#6C7087] mb-1" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>First Name</label>
+                    <input
+                      type="text"
+                      required
+                      value={relative.first_name}
+                      onChange={(e) => setRelative({ ...relative, first_name: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-200 text-sm text-[#333333] focus:outline-none focus:border-[#001E42]"
+                      style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-[#6C7087] mb-1" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Last Name</label>
+                    <input
+                      type="text"
+                      required
+                      value={relative.last_name}
+                      onChange={(e) => setRelative({ ...relative, last_name: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-200 text-sm text-[#333333] focus:outline-none focus:border-[#001E42]"
+                      style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs text-[#6C7087] mb-1" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Sex</label>
+                    <select
+                      value={relative.sex}
+                      onChange={(e) => setRelative({ ...relative, sex: e.target.value as 'Male' | 'Female' | 'Other' })}
+                      className="w-full px-3 py-2 border border-gray-200 text-sm text-[#333333] focus:outline-none focus:border-[#001E42]"
+                      style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}
+                    >
+                      <option>Male</option>
+                      <option>Female</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-xs text-[#6C7087] mb-1" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Relationship</label>
+                    <select
+                      value={relative.relationship}
+                      onChange={(e) => setRelative({ ...relative, relationship: e.target.value as typeof relative.relationship })}
+                      className="w-full px-3 py-2 border border-gray-200 text-sm text-[#333333] focus:outline-none focus:border-[#001E42]"
+                      style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}
+                    >
+                      <option>Son</option>
+                      <option>Daughter</option>
+                      <option>Wife</option>
+                      <option>Husband</option>
+                      <option>Brother</option>
+                      <option>Sister</option>
+                      <option>Mother</option>
+                      <option>Father</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs text-[#6C7087] mb-1" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Date of Birth</label>
+                  <input
+                    type="date"
+                    required
+                    value={relative.dob}
+                    onChange={(e) => setRelative({ ...relative, dob: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-200 text-sm text-[#333333] focus:outline-none focus:border-[#001E42]"
+                    style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs text-[#6C7087] mb-1" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Mobile</label>
+                  <input
+                    type="tel"
+                    required
+                    value={relative.mobile}
+                    onChange={(e) => setRelative({ ...relative, mobile: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-200 text-sm text-[#333333] focus:outline-none focus:border-[#001E42]"
+                    style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs text-[#6C7087] mb-1" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Blood Group</label>
+                  <select
+                    value={relative.blood_group}
+                    onChange={(e) => setRelative({ ...relative, blood_group: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-200 text-sm text-[#333333] focus:outline-none focus:border-[#001E42]"
+                    style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}
+                  >
+                    <option value="">Select</option>
+                    <option value="A Positive">A+</option>
+                    <option value="A Negative">A-</option>
+                    <option value="B Positive">B+</option>
+                    <option value="B Negative">B-</option>
+                    <option value="AB Positive">AB+</option>
+                    <option value="AB Negative">AB-</option>
+                    <option value="O Positive">O+</option>
+                    <option value="O Negative">O-</option>
+                  </select>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Center - Calendar */}
@@ -541,7 +670,12 @@ export default function BookAppointmentPage() {
           <button
             type="button"
             onClick={handleSubmit}
-            disabled={!form.appointment_date || !form.appointment_time}
+            disabled={
+              !form.appointment_date ||
+              !form.appointment_time ||
+              (form.patient_type === 'relative' &&
+                (!relative.first_name || !relative.last_name || !relative.dob || !relative.mobile))
+            }
             className="px-6 py-3 bg-white text-[#333333] text-xs font-bold uppercase tracking-[2px] border border-gray-200 hover:border-[#333333] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
             style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}
           >
