@@ -5,6 +5,27 @@ import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { useAuth } from '@/lib/auth-context';
 import Link from 'next/link';
 
+function formatDateDMY(dateStr: string) {
+  if (!dateStr) return '';
+  const [yyyy, mm, dd] = dateStr.split('-');
+  return `${dd}-${mm}-${yyyy}`;
+}
+
+function getStatusStyle(status: string) {
+  switch (status) {
+    case 'Scheduled':
+      return 'bg-[#FFF8E1] text-[#F5A623] border border-[#F5A623]';
+    case 'Open':
+      return 'bg-[#FFF3E0] text-[#E65100] border border-[#E65100]';
+    case 'Cancelled':
+      return 'bg-[#FCE7EC] text-[#E500BB] border border-[#E500BB]';
+    case 'Closed':
+      return 'bg-[#F2F8F5] text-[#001E42] border border-[#001E42]';
+    default:
+      return 'bg-[#F4F7FA] text-[#6C7087] border border-[#6C7087]';
+  }
+}
+
 export default function PatientAppointments() {
   const { user } = useAuth();
 
@@ -24,39 +45,65 @@ export default function PatientAppointments() {
         </Link>
       </div>
 
-      <div className="bg-white border border-gray-100">
-        <div className="px-4 sm:px-6 py-4 border-b border-gray-100">
-          <h2 className="text-base sm:text-lg font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>All Appointments</h2>
-        </div>
-        <div className="divide-y divide-gray-100">
-          {apptLoading ? <LoadingSpinner className="py-8" /> :
-           appointments.length === 0 ? <p className="px-4 sm:px-6 py-8 text-center text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>No appointments found</p> :
-           appointments.map((appt: any) => (
-             <Link key={appt.name} href={`/patient/appointments/${appt.name}`} className="block px-4 sm:px-6 py-4 hover:bg-[#F4F7FA] transition-colors">
-               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
-                 <div>
-                   <p className="font-medium text-sm sm:text-base text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appt.practitioner_name}</p>
-                   <p className="text-xs sm:text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appt.department} | {appt.appointment_type}</p>
-                   {appt.patient_name && appt.patient_name !== user?.full_name && (
-                     <p className="text-xs text-[#E500BB] font-medium mt-0.5" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>for {appt.patient_name}</p>
-                   )}
-                 </div>
-                 <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-6">
-                   <div className="text-left sm:text-right">
-                     <p className="text-xs sm:text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appt.appointment_date}</p>
-                     <p className="text-xs sm:text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appt.appointment_time}</p>
-                   </div>
-                   <span className={`px-2 sm:px-3 py-1 text-xs font-semibold ${
-                     appt.status === 'Scheduled' ? 'bg-[#F2F8F5] text-[#001E42]' :
-                     appt.status === 'Closed' ? 'bg-[#F2F8F5] text-[#001E42]' :
-                     appt.status === 'Cancelled' ? 'bg-[#FCE7EC] text-[#E500BB]' :
-                     'bg-[#F4F7FA] text-[#6C7087]'
-                   }`} style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appt.status}</span>
-                 </div>
-               </div>
-             </Link>
-           ))}
-        </div>
+      <div className="bg-white border border-gray-100 overflow-x-auto">
+        {apptLoading ? (
+          <LoadingSpinner className="py-8" />
+        ) : appointments.length === 0 ? (
+          <p className="px-4 sm:px-6 py-8 text-center text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+            No appointments found
+          </p>
+        ) : (
+          <table className="w-full text-left">
+            <thead>
+              <tr className="bg-[#F4F7FA] border-b border-gray-200">
+                <th className="px-4 py-3 text-xs font-semibold text-[#6C7087] uppercase tracking-wide" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+                  Title
+                </th>
+                <th className="px-4 py-3 text-xs font-semibold text-[#6C7087] uppercase tracking-wide" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Status</th>
+                <th className="px-4 py-3 text-xs font-semibold text-[#6C7087] uppercase tracking-wide" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Department</th>
+                <th className="px-4 py-3 text-xs font-semibold text-[#6C7087] uppercase tracking-wide" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Date</th>
+                <th className="px-4 py-3 text-xs font-semibold text-[#6C7087] uppercase tracking-wide" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Patient</th>
+                <th className="px-4 py-3 text-xs font-semibold text-[#6C7087] uppercase tracking-wide" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Time</th>
+                <th className="px-4 py-3 text-xs font-semibold text-[#6C7087] uppercase tracking-wide" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>ID</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {appointments.map((appt: any) => (
+                <tr key={appt.name} className="hover:bg-[#F4F7FA] transition-colors">
+                  <td className="px-4 py-3">
+                    <Link
+                      href={`/patient/appointments/${appt.name}`}
+                      className="text-sm font-medium text-[#333333] hover:text-[#001E42] transition-colors"
+                      style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}
+                    >
+                      {appt.title || `${appt.patient_name || appt.patient} with ${appt.practitioner_name}`}
+                    </Link>
+                  </td>
+                  <td className="px-4 py-3">
+                    <span className={`px-2 py-0.5 text-xs font-medium rounded-sm ${getStatusStyle(appt.status)}`} style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+                      {appt.status}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 text-sm text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+                    {appt.department}
+                  </td>
+                  <td className="px-4 py-3 text-sm text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+                    {formatDateDMY(appt.appointment_date)}
+                  </td>
+                  <td className="px-4 py-3 text-sm text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+                    {appt.patient_name || appt.patient}
+                  </td>
+                  <td className="px-4 py-3 text-sm text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+                    {appt.appointment_time}
+                  </td>
+                  <td className="px-4 py-3 text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+                    {appt.name}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );
