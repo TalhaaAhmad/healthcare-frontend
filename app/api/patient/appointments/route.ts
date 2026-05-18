@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
 
     const apptRes = await frappe.get('/resource/Patient Appointment', {
       params: {
-        fields: JSON.stringify(['name', 'patient', 'patient_name', 'practitioner_name', 'department', 'appointment_date', 'appointment_time', 'status', 'title']),
+        fields: JSON.stringify(['name', 'patient', 'patient_name', 'practitioner_name', 'department', 'appointment_date', 'appointment_time', 'status', 'title', 'paid_amount']),
         filters: JSON.stringify(filters),
         order_by: 'creation desc',
         limit_page_length: 50,
