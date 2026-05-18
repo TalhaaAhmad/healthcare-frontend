@@ -144,19 +144,19 @@ export default function AppointmentDetail() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0">
         <div>
           <Link href="/patient/appointments" className="text-sm text-[#E500BB] hover:text-[#001E42] font-semibold transition-colors" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
             &larr; Back to Appointments
           </Link>
-          <h1 className="text-2xl font-semibold text-[#333333] mt-2" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Appointment Details</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold text-[#333333] mt-2" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Appointment Details</h1>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           {canModify && (
             <>
               <button
                 onClick={() => setShowReschedule(!showReschedule)}
-                className="px-4 py-2 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] transition-colors"
+                className="px-3 sm:px-4 py-2 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] transition-colors"
                 style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}
               >
                 Reschedule
@@ -164,14 +164,14 @@ export default function AppointmentDetail() {
               <button
                 onClick={handleCancel}
                 disabled={updateAppointment.isPending}
-                className="px-4 py-2 bg-[#FCE7EC] text-[#E500BB] text-xs font-bold uppercase tracking-[2px] hover:bg-[#E500BB] hover:text-white transition-colors disabled:opacity-50"
+                className="px-3 sm:px-4 py-2 bg-[#FCE7EC] text-[#E500BB] text-xs font-bold uppercase tracking-[2px] hover:bg-[#E500BB] hover:text-white transition-colors disabled:opacity-50"
                 style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}
               >
                 {updateAppointment.isPending ? 'Cancelling...' : 'Cancel'}
               </button>
             </>
           )}
-          <span className={`px-3 py-1 text-xs font-semibold ${
+          <span className={`px-2 sm:px-3 py-1 text-xs font-semibold ${
             appointment.status === 'Scheduled' ? 'bg-[#F2F8F5] text-[#001E42]' :
             appointment.status === 'Closed' ? 'bg-[#F2F8F5] text-[#001E42]' :
             appointment.status === 'Cancelled' ? 'bg-[#FCE7EC] text-[#E500BB]' :
@@ -182,9 +182,9 @@ export default function AppointmentDetail() {
 
       {/* Reschedule Form */}
       {showReschedule && canModify && (
-        <div className="bg-white border border-gray-100 p-6">
-          <h2 className="text-lg font-semibold text-[#333333] mb-4" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Reschedule Appointment</h2>
-          <form onSubmit={handleReschedule} className="flex items-end gap-4">
+        <div className="bg-white border border-gray-100 p-4 sm:p-6">
+          <h2 className="text-base sm:text-lg font-semibold text-[#333333] mb-4" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Reschedule Appointment</h2>
+          <form onSubmit={handleReschedule} className="flex flex-col sm:flex-row sm:items-end gap-4">
             <div>
               <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>New Date</label>
               <input
@@ -212,7 +212,7 @@ export default function AppointmentDetail() {
               <button
                 type="submit"
                 disabled={updateAppointment.isPending}
-                className="px-4 py-2 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] disabled:opacity-50 transition-colors"
+                className="px-3 sm:px-4 py-2 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] disabled:opacity-50 transition-colors"
                 style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}
               >
                 {updateAppointment.isPending ? 'Saving...' : 'Confirm'}
@@ -220,7 +220,7 @@ export default function AppointmentDetail() {
               <button
                 type="button"
                 onClick={() => setShowReschedule(false)}
-                className="px-4 py-2 bg-white text-[#333333] text-xs font-bold uppercase tracking-[2px] border border-[#333333] hover:bg-[#333333] hover:text-white transition-colors"
+                className="px-3 sm:px-4 py-2 bg-white text-[#333333] text-xs font-bold uppercase tracking-[2px] border border-[#333333] hover:bg-[#333333] hover:text-white transition-colors"
                 style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}
               >
                 Cancel
@@ -231,9 +231,9 @@ export default function AppointmentDetail() {
       )}
 
       {/* Appointment Info Card */}
-      <div className="bg-white border border-gray-100 p-6">
-        <h2 className="text-lg font-semibold text-[#333333] mb-4" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Appointment Information</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="bg-white border border-gray-100 p-4 sm:p-6">
+        <h2 className="text-base sm:text-lg font-semibold text-[#333333] mb-4" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Appointment Information</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           <div>
             <p className="text-xs font-medium text-[#6C7087] uppercase" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Doctor</p>
             <p className="text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appointment.practitioner_name}</p>
@@ -258,7 +258,7 @@ export default function AppointmentDetail() {
             <p className="text-xs font-medium text-[#6C7087] uppercase" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Duration</p>
             <p className="text-sm text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appointment.duration} min</p>
           </div>
-          <div className="col-span-2">
+          <div className="sm:col-span-2">
             <p className="text-xs font-medium text-[#6C7087] uppercase" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Notes</p>
             <p className="text-sm text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appointment.notes || '—'}</p>
           </div>
@@ -267,13 +267,13 @@ export default function AppointmentDetail() {
 
       {/* Encounter Section */}
       <div className="bg-white border border-gray-100">
-        <div className="px-6 py-4 border-b border-gray-100">
-          <h2 className="text-lg font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Consultation / Encounter</h2>
+        <div className="px-4 sm:px-6 py-4 border-b border-gray-100">
+          <h2 className="text-base sm:text-lg font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Consultation / Encounter</h2>
         </div>
         <div className="divide-y divide-gray-100">
           {encLoading ? <LoadingSpinner className="py-8" /> :
            encounters.length === 0 ? (
-             <p className="px-6 py-8 text-center text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+             <p className="px-4 sm:px-6 py-8 text-center text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
                No encounter yet. The doctor will create one after your visit.
              </p>
            ) : encounters.map((enc: any) => (
@@ -284,20 +284,20 @@ export default function AppointmentDetail() {
 
       {/* Lab Tests Section */}
       <div className="bg-white border border-gray-100">
-        <div className="px-6 py-4 border-b border-gray-100">
-          <h2 className="text-lg font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Lab Tests</h2>
+        <div className="px-4 sm:px-6 py-4 border-b border-gray-100">
+          <h2 className="text-base sm:text-lg font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Lab Tests</h2>
         </div>
         <div className="divide-y divide-gray-100">
           {labLoading ? <LoadingSpinner className="py-8" /> :
            labTests.length === 0 ? (
-             <p className="px-6 py-8 text-center text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>No lab tests ordered for this appointment</p>
+             <p className="px-4 sm:px-6 py-8 text-center text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>No lab tests ordered for this appointment</p>
            ) : labTests.map((test: any) => (
-             <div key={test.name} className="px-6 py-4 flex justify-between items-center">
+             <div key={test.name} className="px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0">
                <div>
-                 <p className="font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{test.template}</p>
-                 <p className="text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{test.date}</p>
+                 <p className="font-medium text-sm sm:text-base text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{test.template}</p>
+                 <p className="text-xs sm:text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{test.date}</p>
                </div>
-               <span className={`px-3 py-1 text-xs font-semibold ${
+               <span className={`px-2 sm:px-3 py-1 text-xs font-semibold self-start sm:self-auto ${
                  test.status === 'Completed' ? 'bg-[#F2F8F5] text-[#001E42]' :
                  test.status === 'Open' ? 'bg-[#F4F7FA] text-[#001E42]' : 'bg-[#F4F7FA] text-[#6C7087]'
                }`} style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{test.status}</span>

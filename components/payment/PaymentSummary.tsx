@@ -28,15 +28,15 @@ export default function PaymentSummary({
   const totalAmount = consultationFee;
 
   return (
-    <div className="bg-white p-6 border border-gray-100 space-y-6">
-      <h2 className="text-lg font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Review & Pay</h2>
+    <div className="bg-white p-4 sm:p-6 border border-gray-100 space-y-4 sm:space-y-6">
+      <h2 className="text-base sm:text-lg font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Review & Pay</h2>
 
       {/* Appointment Summary */}
-      <div className="bg-[#F4F7FA] p-4 space-y-2">
-        <h3 className="text-sm font-medium text-[#6C7087] uppercase tracking-wide" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+      <div className="bg-[#F4F7FA] p-3 sm:p-4 space-y-2">
+        <h3 className="text-xs sm:text-sm font-medium text-[#6C7087] uppercase tracking-wide" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
           Appointment Summary
         </h3>
-        <div className="grid grid-cols-2 gap-2 text-sm">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
           <div>
             <span className="text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Doctor:</span>
             <span className="ml-2 font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{doctorName}</span>
@@ -87,7 +87,7 @@ export default function PaymentSummary({
       </div>
 
       {/* Actions */}
-      <div className="flex gap-3">
+      <div className="flex flex-col sm:flex-row gap-3">
         <button
           type="button"
           onClick={onBack}

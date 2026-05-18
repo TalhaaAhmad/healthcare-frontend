@@ -227,7 +227,8 @@ export function usePractitionerSchedule(practitionerId: string) {
       return frappeClient.get(`/resource/Practitioner Schedule/${scheduleName}`);
     },
     enabled: !!practitionerId,
-    staleTime: 5 * 60 * 1000,
+    staleTime: 0,
+    gcTime: 0,
   });
 }
 

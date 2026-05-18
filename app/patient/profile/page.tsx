@@ -31,18 +31,18 @@ export default function PatientProfile() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>My Profile</h1>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
+        <h1 className="text-xl sm:text-2xl font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>My Profile</h1>
         {!isEditing && (
           <button onClick={startEditing}
-            className="px-6 py-3 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] transition-colors"
+            className="px-4 sm:px-6 py-2.5 sm:py-3 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] transition-colors"
             style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
             Edit Profile
           </button>
         )}
       </div>
 
-      <div className="bg-white border border-gray-100 p-6">
+      <div className="bg-white border border-gray-100 p-4 sm:p-6">
         {isEditing ? (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -99,14 +99,14 @@ export default function PatientProfile() {
                 className="mt-1 block w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#001E42] text-sm"
                 style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }} rows={3} />
             </div>
-            <div className="flex space-x-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:space-x-4">
               <button type="submit" disabled={updatePatient.isPending}
-                className="px-6 py-3 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] disabled:opacity-50 transition-colors"
+                className="px-4 sm:px-6 py-2.5 sm:py-3 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] disabled:opacity-50 transition-colors"
                 style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
                 {updatePatient.isPending ? 'Saving...' : 'Save Changes'}
               </button>
               <button type="button" onClick={() => setIsEditing(false)}
-                className="px-6 py-3 bg-white text-[#333333] text-xs font-bold uppercase tracking-[2px] border border-[#333333] hover:bg-[#333333] hover:text-white transition-colors"
+                className="px-4 sm:px-6 py-2.5 sm:py-3 bg-white text-[#333333] text-xs font-bold uppercase tracking-[2px] border border-[#333333] hover:bg-[#333333] hover:text-white transition-colors"
                 style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
                 Cancel
               </button>

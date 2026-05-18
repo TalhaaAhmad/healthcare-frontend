@@ -43,17 +43,17 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#F2F8F5] py-12 px-4">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white border border-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-[#F2F8F5] py-8 sm:py-12 px-4">
+      <div className="max-w-md w-full space-y-6 sm:space-y-8 p-6 sm:p-8 bg-white border border-gray-100">
         <div className="text-center">
           <Image
             src="/logo.png"
             alt="Zan Center"
-            width={64}
-            height={64}
-            className="mx-auto mb-4 object-contain"
+            width={56}
+            height={56}
+            className="mx-auto mb-4 object-contain w-14 h-14 sm:w-16 sm:h-16"
           />
-          <h2 className="text-center text-3xl font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>
+          <h2 className="text-center text-2xl sm:text-3xl font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>
             Zan Center
           </h2>
           <p className="mt-2 text-center text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>

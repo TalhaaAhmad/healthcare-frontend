@@ -78,18 +78,18 @@ export default function RegisterPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#F2F8F5] py-12 px-4">
-        <div className="max-w-md w-full p-8 bg-white border border-gray-100 text-center">
-          <div className="w-16 h-16 mx-auto mb-4 bg-[#F2F8F5] flex items-center justify-center">
-            <svg className="w-8 h-8 text-[#001E42]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="min-h-screen flex items-center justify-center bg-[#F2F8F5] py-8 sm:py-12 px-4">
+        <div className="max-w-md w-full p-6 sm:p-8 bg-white border border-gray-100 text-center">
+          <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 bg-[#F2F8F5] flex items-center justify-center">
+            <svg className="w-7 h-7 sm:w-8 sm:h-8 text-[#001E42]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h2 className="text-2xl font-semibold text-[#001E42] mb-4" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Registration Successful!</h2>
-          <p className="text-[#666666] mb-6" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Your account has been created. You can now log in.</p>
+          <h2 className="text-xl sm:text-2xl font-semibold text-[#001E42] mb-4" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Registration Successful!</h2>
+          <p className="text-sm sm:text-base text-[#666666] mb-6" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Your account has been created. You can now log in.</p>
           <Link
             href="/login"
-            className="inline-block px-8 py-4 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] transition-colors"
+            className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] transition-colors"
             style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}
           >
             Go to Login
@@ -100,17 +100,17 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#F2F8F5] py-12 px-4">
-      <div className="max-w-lg w-full space-y-8 p-8 bg-white border border-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-[#F2F8F5] py-8 sm:py-12 px-4">
+      <div className="max-w-lg w-full space-y-6 sm:space-y-8 p-6 sm:p-8 bg-white border border-gray-100">
         <div className="text-center">
           <Image
             src="/logo.png"
             alt="Zan Center"
-            width={64}
-            height={64}
-            className="mx-auto mb-4 object-contain"
+            width={56}
+            height={56}
+            className="mx-auto mb-4 object-contain w-14 h-14 sm:w-16 sm:h-16"
           />
-          <h2 className="text-center text-3xl font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Zan Center</h2>
+          <h2 className="text-center text-2xl sm:text-3xl font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Zan Center</h2>
           <p className="mt-2 text-center text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Create your patient account</p>
         </div>
 
@@ -119,7 +119,7 @@ export default function RegisterPage() {
             <div className="bg-[#FCE7EC] border border-[#E500BB]/20 text-[#001E42] px-4 py-3 text-sm" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{error}</div>
           )}
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>First Name</label>
               <input name="first_name" required value={form.first_name} onChange={handleChange}
@@ -148,7 +148,7 @@ export default function RegisterPage() {
               style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }} />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Sex</label>
               <select name="sex" value={form.sex} onChange={handleChange}

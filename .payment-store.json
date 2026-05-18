@@ -102,5 +102,18 @@
     "notes": "",
     "amount": 10,
     "createdAt": 1778673699669
+  },
+  "AMPBCGE59": {
+    "patient": "Muhammad Khan",
+    "patient_name": "Muhammad Khan",
+    "practitioner": "HLC-PRAC-2026-00001",
+    "practitioner_name": "Talha Ahmad",
+    "department": "Cardiology",
+    "appointment_date": "2026-06-05",
+    "appointment_time": "12:00:00",
+    "appointment_type": "General Consultation",
+    "notes": "",
+    "amount": 10,
+    "createdAt": 1779117217426
   }
 }

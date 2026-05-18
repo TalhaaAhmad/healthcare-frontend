@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #333333;
+  --header-height: 60px;
 
   /* ZanCenter Theme Colors */
   --zan-navy: #001E42;
