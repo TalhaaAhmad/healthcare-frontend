@@ -12,14 +12,13 @@ export default function TransactionHistory() {
   const appointments = apptData?.data || [];
 
   // Treat all appointments as transactions (they all require payment)
-  // In a real system, you'd filter by a payment_status field or query Payment Entry
   const transactions = appointments.map((appt: any) => ({
     id: appt.name,
     date: appt.appointment_date,
     doctor: appt.practitioner_name,
     department: appt.department,
     type: appt.appointment_type,
-    amount: 500, // Fallback amount since we don't have fee stored on appointment
+    amount: appt.paid_amount || 0,
     status: appt.status,
   }));
 
