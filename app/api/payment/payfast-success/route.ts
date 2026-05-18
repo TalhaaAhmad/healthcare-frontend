@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getFrappeServerClient } from '@/lib/frappe-client';
-import { getPendingPayment } from '@/lib/payment-store';
+import { getPendingPayment, removePendingPayment } from '@/lib/payment-store';
 
 const MERCHANT_ID = process.env.PAYFAST_MERCHANT_ID!;
 const SECURED_KEY = process.env.PAYFAST_SECURED_KEY!;
@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
   const validationHash = searchParams.get('validation_hash') || '';
 
   // Get appointment data from server store
-  const appointmentData = getPendingPayment(basketId) || {};
+  const appointmentData = (await getPendingPayment(basketId)) || {};
 
   // Validate hash
   if (!validateHash(basketId, validationHash, errCode)) {
@@ -201,6 +201,9 @@ export async function GET(request: NextRequest) {
         ],
       });
     }
+
+    // Clean up pending payment data
+    await removePendingPayment(basketId);
 
     // Redirect to appointment detail page
     return NextResponse.redirect(

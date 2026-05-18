@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    storePendingPayment(basket_id, appointment_data);
+    await storePendingPayment(basket_id, appointment_data);
 
     return NextResponse.json({ success: true });
   } catch (error: any) {

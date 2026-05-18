@@ -1,54 +1,27 @@
-import fs from 'fs';
-import path from 'path';
+import { Redis } from '@upstash/redis';
 
-// File-based store for pending payment data
-// Note: For production, use Redis or a proper database
+// Upstash Redis for serverless-safe payment data storage
+// Sign up at https://upstash.com/ for a free Redis instance
 
-const STORE_FILE = path.join(process.cwd(), '.payment-store.json');
+const redis = Redis.fromEnv();
 
-function readStore(): Record<string, any> {
-  try {
-    if (fs.existsSync(STORE_FILE)) {
-      const data = fs.readFileSync(STORE_FILE, 'utf-8');
-      return JSON.parse(data);
-    }
-  } catch (e) {
-    console.error('[PaymentStore] Error reading store:', e);
-  }
-  return {};
+const KEY_PREFIX = 'payment:';
+const TTL_SECONDS = 30 * 60; // 30 minutes
+
+export async function storePendingPayment(basketId: string, data: any): Promise<void> {
+  await redis.set(`${KEY_PREFIX}${basketId}`, JSON.stringify(data), { ex: TTL_SECONDS });
 }
 
-function writeStore(store: Record<string, any>): void {
+export async function getPendingPayment(basketId: string): Promise<any | undefined> {
+  const value = await redis.get<string>(`${KEY_PREFIX}${basketId}`);
+  if (!value) return undefined;
   try {
-    fs.writeFileSync(STORE_FILE, JSON.stringify(store, null, 2));
-  } catch (e) {
-    console.error('[PaymentStore] Error writing store:', e);
+    return typeof value === 'string' ? JSON.parse(value) : value;
+  } catch {
+    return value;
   }
 }
 
-export function storePendingPayment(basketId: string, data: any): void {
-  const store = readStore();
-  store[basketId] = {
-    ...data,
-    createdAt: Date.now(),
-  };
-  writeStore(store);
-  
-  // Auto-cleanup after 30 minutes
-  setTimeout(() => {
-    const s = readStore();
-    delete s[basketId];
-    writeStore(s);
-  }, 30 * 60 * 1000);
-}
-
-export function getPendingPayment(basketId: string): any | undefined {
-  const store = readStore();
-  return store[basketId];
-}
-
-export function removePendingPayment(basketId: string): void {
-  const store = readStore();
-  delete store[basketId];
-  writeStore(store);
+export async function removePendingPayment(basketId: string): Promise<void> {
+  await redis.del(`${KEY_PREFIX}${basketId}`);
 }
