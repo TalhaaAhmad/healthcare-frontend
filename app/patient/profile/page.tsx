@@ -27,76 +27,87 @@ export default function PatientProfile() {
   }
 
   if (isLoading) return <LoadingSpinner className="py-12" />;
-  if (!patient) return <p className="text-center text-gray-500 py-12">Patient not found</p>;
+  if (!patient) return <p className="text-center text-[#6C7087] py-12" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Patient not found</p>;
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-900">My Profile</h1>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
+        <h1 className="text-xl sm:text-2xl font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>My Profile</h1>
         {!isEditing && (
           <button onClick={startEditing}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm font-medium">
+            className="px-4 sm:px-6 py-2.5 sm:py-3 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] transition-colors"
+            style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
             Edit Profile
           </button>
         )}
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+      <div className="bg-white border border-gray-100 p-4 sm:p-6">
         {isEditing ? (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">First Name</label>
+                <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>First Name</label>
                 <input value={form.first_name || ''} onChange={(e) => setForm({ ...form, first_name: e.target.value })}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" />
+                  className="mt-1 block w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#001E42] text-sm"
+                  style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Last Name</label>
+                <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Last Name</label>
                 <input value={form.last_name || ''} onChange={(e) => setForm({ ...form, last_name: e.target.value })}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" />
+                  className="mt-1 block w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#001E42] text-sm"
+                  style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Mobile</label>
+                <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Mobile</label>
                 <input value={form.mobile || ''} onChange={(e) => setForm({ ...form, mobile: e.target.value })}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" />
+                  className="mt-1 block w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#001E42] text-sm"
+                  style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Email</label>
+                <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Email</label>
                 <input type="email" value={form.email || ''} onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" />
+                  className="mt-1 block w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#001E42] text-sm"
+                  style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Blood Group</label>
+                <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Blood Group</label>
                 <select value={form.blood_group || ''} onChange={(e) => setForm({ ...form, blood_group: e.target.value })}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+                  className="mt-1 block w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#001E42] text-sm"
+                  style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}>
                   <option value="">Select</option>
                   <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
                   <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Date of Birth</label>
+                <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Date of Birth</label>
                 <input type="date" value={form.dob || ''} onChange={(e) => setForm({ ...form, dob: e.target.value })}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" />
+                  className="mt-1 block w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#001E42] text-sm"
+                  style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }} />
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Allergies</label>
+              <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Allergies</label>
               <textarea value={form.allergies || ''} onChange={(e) => setForm({ ...form, allergies: e.target.value })}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" rows={2} />
+                className="mt-1 block w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#001E42] text-sm"
+                style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }} rows={2} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Medical History</label>
+              <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Medical History</label>
               <textarea value={form.medical_history || ''} onChange={(e) => setForm({ ...form, medical_history: e.target.value })}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" rows={3} />
+                className="mt-1 block w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#001E42] text-sm"
+                style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }} rows={3} />
             </div>
-            <div className="flex space-x-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:space-x-4">
               <button type="submit" disabled={updatePatient.isPending}
-                className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50">
+                className="px-4 sm:px-6 py-2.5 sm:py-3 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] disabled:opacity-50 transition-colors"
+                style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
                 {updatePatient.isPending ? 'Saving...' : 'Save Changes'}
               </button>
               <button type="button" onClick={() => setIsEditing(false)}
-                className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
+                className="px-4 sm:px-6 py-2.5 sm:py-3 bg-white text-[#333333] text-xs font-bold uppercase tracking-[2px] border border-[#333333] hover:bg-[#333333] hover:text-white transition-colors"
+                style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
                 Cancel
               </button>
             </div>
@@ -129,8 +140,8 @@ export default function PatientProfile() {
 function InfoItem({ label, value }: { label: string; value?: string }) {
   return (
     <div>
-      <p className="text-sm font-medium text-gray-500">{label}</p>
-      <p className="text-base text-gray-900">{value || '—'}</p>
+      <p className="text-sm font-medium text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{label}</p>
+      <p className="text-base text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{value || '—'}</p>
     </div>
   );
 }

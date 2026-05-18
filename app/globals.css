@@ -2,25 +2,146 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #333333;
+  --header-height: 60px;
+
+  /* ZanCenter Theme Colors */
+  --zan-navy: #001E42;
+  --zan-magenta: #E500BB;
+  --zan-sky: #2EA3F2;
+  --zan-mint: #F2F8F5;
+  --zan-peach: #FFF2E2;
+  --zan-pink: #FCE7EC;
+  --zan-blue-gray: #F4F7FA;
+  --zan-warm-beige: #E0D2B3;
+  --zan-footer: #171717;
+  --zan-body-text: #666666;
+  --zan-muted: #6C7087;
+  --zan-heading: #333333;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-open-sans);
+  --font-serif: var(--font-eb-garamond);
   --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* ZanCenter custom colors */
+  --color-zan-navy: #001E42;
+  --color-zan-magenta: #E500BB;
+  --color-zan-sky: #2EA3F2;
+  --color-zan-mint: #F2F8F5;
+  --color-zan-peach: #FFF2E2;
+  --color-zan-pink: #FCE7EC;
+  --color-zan-blue-gray: #F4F7FA;
+  --color-zan-warm-beige: #E0D2B3;
+  --color-zan-footer: #171717;
+  --color-zan-body: #666666;
+  --color-zan-muted: #6C7087;
+  --color-zan-heading: #333333;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-open-sans), 'Open Sans', Arial, Helvetica, sans-serif;
+}
+
+/* ZanCenter Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-eb-garamond), 'EB Garamond', Georgia, serif;
+  color: var(--zan-heading);
+}
+
+/* ZanCenter Button Styles */
+.zan-btn-primary {
+  background-color: var(--zan-navy);
+  color: #ffffff;
+  padding: 14px 28px;
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font-open-sans), 'Open Sans', Arial, sans-serif;
+  transition: background-color 0.2s ease;
+}
+
+.zan-btn-primary:hover {
+  background-color: #002a5c;
+}
+
+.zan-btn-secondary {
+  background-color: #ffffff;
+  color: #000000;
+  padding: 14px 28px;
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font-open-sans), 'Open Sans', Arial, sans-serif;
+  border: 1px solid #000000;
+  transition: all 0.2s ease;
+}
+
+.zan-btn-secondary:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+/* ZanCenter Card Style - flat, no rounded corners, no shadow */
+.zan-card {
+  background-color: #ffffff;
+  border-radius: 0;
+  box-shadow: none;
+  border: 1px solid #e5e7eb;
+}
+
+/* ZanCenter Section Backgrounds */
+.zan-section-mint {
+  background-color: var(--zan-mint);
+}
+
+.zan-section-peach {
+  background-color: var(--zan-peach);
+}
+
+.zan-section-pink {
+  background-color: var(--zan-pink);
+}
+
+.zan-section-blue-gray {
+  background-color: var(--zan-blue-gray);
+}
+
+.zan-section-white {
+  background-color: #ffffff;
+}
+
+/* Active nav link */
+.zan-nav-active {
+  color: var(--zan-magenta);
+  font-weight: 600;
+}
+
+/* Form inputs - square corners like ZanCenter */
+.zan-input {
+  border-radius: 0;
+  border: 1px solid #d1d5db;
+  padding: 10px 14px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.zan-input:focus {
+  outline: none;
+  border-color: var(--zan-navy);
+}
+
+/* Selection color */
+::selection {
+  background-color: var(--zan-magenta);
+  color: #ffffff;
 }

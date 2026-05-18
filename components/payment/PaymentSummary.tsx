@@ -28,70 +28,71 @@ export default function PaymentSummary({
   const totalAmount = consultationFee;
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-6">
-      <h2 className="text-lg font-semibold text-gray-900">Review & Pay</h2>
+    <div className="bg-white p-4 sm:p-6 border border-gray-100 space-y-4 sm:space-y-6">
+      <h2 className="text-base sm:text-lg font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Review & Pay</h2>
 
       {/* Appointment Summary */}
-      <div className="bg-gray-50 rounded-lg p-4 space-y-2">
-        <h3 className="text-sm font-medium text-gray-700 uppercase tracking-wide">
+      <div className="bg-[#F4F7FA] p-3 sm:p-4 space-y-2">
+        <h3 className="text-xs sm:text-sm font-medium text-[#6C7087] uppercase tracking-wide" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
           Appointment Summary
         </h3>
-        <div className="grid grid-cols-2 gap-2 text-sm">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
           <div>
-            <span className="text-gray-500">Doctor:</span>
-            <span className="ml-2 font-medium text-gray-900">{doctorName}</span>
+            <span className="text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Doctor:</span>
+            <span className="ml-2 font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{doctorName}</span>
           </div>
           <div>
-            <span className="text-gray-500">Department:</span>
-            <span className="ml-2 font-medium text-gray-900">{department}</span>
+            <span className="text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Department:</span>
+            <span className="ml-2 font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{department}</span>
           </div>
           <div>
-            <span className="text-gray-500">Date:</span>
-            <span className="ml-2 font-medium text-gray-900">{date}</span>
+            <span className="text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Date:</span>
+            <span className="ml-2 font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{date}</span>
           </div>
           <div>
-            <span className="text-gray-500">Time:</span>
-            <span className="ml-2 font-medium text-gray-900">{time}</span>
+            <span className="text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Time:</span>
+            <span className="ml-2 font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{time}</span>
           </div>
           <div className="col-span-2">
-            <span className="text-gray-500">Type:</span>
-            <span className="ml-2 font-medium text-gray-900">{appointmentType}</span>
+            <span className="text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Type:</span>
+            <span className="ml-2 font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appointmentType}</span>
           </div>
         </div>
       </div>
 
       {/* Fee Breakdown */}
       <div className="space-y-2">
-        <h3 className="text-sm font-medium text-gray-700 uppercase tracking-wide">
+        <h3 className="text-sm font-medium text-[#6C7087] uppercase tracking-wide" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
           Fee Details
         </h3>
         <div className="flex justify-between text-sm">
-          <span className="text-gray-600">Consultation Fee</span>
-          <span className="font-medium text-gray-900">Rs. {consultationFee.toFixed(2)}</span>
+          <span className="text-[#666666]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Consultation Fee</span>
+          <span className="font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Rs. {consultationFee.toFixed(2)}</span>
         </div>
         <div className="border-t border-gray-200 pt-2 flex justify-between">
-          <span className="font-semibold text-gray-900">Total</span>
-          <span className="font-bold text-lg text-gray-900">Rs. {totalAmount.toFixed(2)}</span>
+          <span className="font-semibold text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Total</span>
+          <span className="font-bold text-lg text-[#001E42]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Rs. {totalAmount.toFixed(2)}</span>
         </div>
       </div>
 
       {/* Payment Method */}
-      <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg">
-        <svg className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="flex items-center gap-3 p-3 bg-[#F2F8F5]">
+        <svg className="h-6 w-6 text-[#001E42]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
         </svg>
         <div>
-          <p className="text-sm font-medium text-gray-900">PayFast Secure Payment</p>
-          <p className="text-xs text-gray-500">Credit/Debit Card, Mobile Wallet</p>
+          <p className="text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>PayFast Secure Payment</p>
+          <p className="text-xs text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Credit/Debit Card, Mobile Wallet</p>
         </div>
       </div>
 
       {/* Actions */}
-      <div className="flex gap-3">
+      <div className="flex flex-col sm:flex-row gap-3">
         <button
           type="button"
           onClick={onBack}
-          className="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 font-medium"
+          className="flex-1 px-4 py-3 bg-white text-[#333333] text-xs font-bold uppercase tracking-[2px] border border-[#333333] hover:bg-[#333333] hover:text-white transition-colors"
+          style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}
         >
           Back
         </button>
@@ -99,7 +100,8 @@ export default function PaymentSummary({
           type="button"
           onClick={onPay}
           disabled={isLoading}
-          className="flex-1 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 font-medium flex items-center justify-center gap-2"
+          className="flex-1 px-4 py-3 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
+          style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}
         >
           {isLoading ? (
             <>

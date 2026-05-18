@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getFrappeServerClient } from '@/lib/frappe-client';
 
 /**
- * Lookup a user's linked Patient and/or Healthcare Practitioner records.
+ * Lookup a user's linked Patient record.
  * Uses API Key auth (not cookie auth) because the logged-in user may not
  * have permission to read these DocTypes via the REST API.
  */
@@ -16,7 +16,6 @@ export async function GET(request: NextRequest) {
     }
 
     let patientId = null;
-    let practitionerId = null;
 
     // Lookup Patient by email — fetch multiple possible ID fields
     try {
@@ -34,19 +33,6 @@ export async function GET(request: NextRequest) {
       console.log('[Lookup] Patient search failed:', err.response?.data || err.message);
     }
 
-    // Lookup Healthcare Practitioner by user_id
-    try {
-      const practRes = await getFrappeServerClient().get(
-        `/resource/Healthcare%20Practitioner?fields=["name"]&filters=[["user_id","=","${email}"]]`
-      );
-      console.log('[Lookup] Practitioner search by user_id:', email, 'result:', JSON.stringify(practRes.data));
-      if (practRes.data?.data?.length > 0) {
-        practitionerId = practRes.data.data[0].name;
-      }
-    } catch (err: any) {
-      console.log('[Lookup] Practitioner search failed:', err.response?.data || err.message);
-    }
-
     // Fallback: if role suggests Patient but no record found, try by owner
     if (!patientId) {
       try {
@@ -61,7 +47,7 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    return NextResponse.json({ patientId, practitionerId });
+    return NextResponse.json({ patientId });
   } catch (error: any) {
     return NextResponse.json(
       { error: 'Lookup failed', detail: error.message },

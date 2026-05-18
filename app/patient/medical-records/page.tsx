@@ -87,13 +87,13 @@ export default function MedicalRecords() {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-2xl font-bold text-gray-900">Medical Records</h1>
+      <h1 className="text-xl sm:text-2xl font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Medical Records</h1>
 
       <section>
-        <h2 className="text-lg font-semibold text-gray-800 mb-4">Consultation History</h2>
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 divide-y divide-gray-200">
+        <h2 className="text-base sm:text-lg font-semibold text-[#333333] mb-4" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Consultation History</h2>
+        <div className="bg-white border border-gray-100 divide-y divide-gray-100">
           {encounterLoading ? <LoadingSpinner className="py-8" /> :
-           encounters.length === 0 ? <p className="px-6 py-8 text-center text-gray-500">No consultation records found</p> :
+           encounters.length === 0 ? <p className="px-4 sm:px-6 py-8 text-center text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>No consultation records found</p> :
            encounters.map((enc: any) => (
              <EncounterDetail key={enc.name} encounterName={enc.name} />
            ))}
@@ -101,10 +101,10 @@ export default function MedicalRecords() {
       </section>
 
       <section>
-        <h2 className="text-lg font-semibold text-gray-800 mb-4">Prescriptions</h2>
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 divide-y divide-gray-200">
+        <h2 className="text-base sm:text-lg font-semibold text-[#333333] mb-4" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Prescriptions</h2>
+        <div className="bg-white border border-gray-100 divide-y divide-gray-100">
           {encounterLoading ? <LoadingSpinner className="py-8" /> :
-           encounters.length === 0 ? <p className="px-6 py-8 text-center text-gray-500">No prescriptions found</p> :
+           encounters.length === 0 ? <p className="px-4 sm:px-6 py-8 text-center text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>No prescriptions found</p> :
            encounters.map((enc: any) => (
              <EncounterPrescriptions key={`pres-${enc.name}`} encounterName={enc.name} />
            ))}
@@ -112,20 +112,20 @@ export default function MedicalRecords() {
       </section>
 
       <section>
-        <h2 className="text-lg font-semibold text-gray-800 mb-4">Lab Tests</h2>
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 divide-y divide-gray-200">
+        <h2 className="text-base sm:text-lg font-semibold text-[#333333] mb-4" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Lab Tests</h2>
+        <div className="bg-white border border-gray-100 divide-y divide-gray-100">
           {labLoading ? <LoadingSpinner className="py-8" /> :
-           labTests.length === 0 ? <p className="px-6 py-8 text-center text-gray-500">No lab tests found</p> :
+           labTests.length === 0 ? <p className="px-4 sm:px-6 py-8 text-center text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>No lab tests found</p> :
            labTests.map((test: any) => (
-             <div key={test.name} className="px-6 py-4 flex justify-between items-center">
+             <div key={test.name} className="px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0">
                <div>
-                 <p className="font-medium text-gray-900">{test.template}</p>
-                 <p className="text-sm text-gray-500">{test.date}</p>
+                 <p className="font-medium text-sm sm:text-base text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{test.template}</p>
+                 <p className="text-xs sm:text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{test.date}</p>
                </div>
-               <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                 test.status === 'Completed' ? 'bg-green-100 text-green-800' :
-                 test.status === 'Open' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'
-               }`}>{test.status}</span>
+               <span className={`px-2 sm:px-3 py-1 text-xs font-semibold self-start sm:self-auto ${
+                 test.status === 'Completed' ? 'bg-[#F2F8F5] text-[#001E42]' :
+                 test.status === 'Open' ? 'bg-[#F4F7FA] text-[#001E42]' : 'bg-[#F4F7FA] text-[#6C7087]'
+               }`} style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{test.status}</span>
              </div>
            ))}
         </div>
