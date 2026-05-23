@@ -37,6 +37,8 @@ export function useFrappeGetOne(doctype: string, name: string) {
       }
     },
     enabled: !!name,
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
   });
 }
 
@@ -198,6 +200,18 @@ export function useDoctorList() {
   });
 }
 
+export function useAppointmentTypes() {
+  return useQuery({
+    queryKey: ['Appointment Type', 'list'],
+    queryFn: () => frappeClient.get('/resource/Appointment Type', {
+      fields: ['name'],
+      limit_page_length: 100,
+    }),
+    staleTime: 10 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
+  });
+}
+
 export function useLiveAppointments(patientId: string) {
   return useQuery({
     queryKey: ['Patient Appointment', 'live', patientId],
@@ -241,8 +255,8 @@ export function usePractitionerSchedule(practitionerId: string) {
       return frappeClient.get(`/resource/Practitioner Schedule/${scheduleName}`);
     },
     enabled: !!practitionerId,
-    staleTime: 0,
-    gcTime: 0,
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
   });
 }
 
@@ -259,7 +273,8 @@ export function usePractitionerAppointments(practitionerId: string, date: string
       ],
     }),
     enabled: !!practitionerId && !!date,
-    staleTime: 30 * 1000,
+    staleTime: 60 * 1000,
+    gcTime: 5 * 60 * 1000,
   });
 }
 

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { useDoctorList, usePractitionerSchedule, usePractitionerAppointments, useFrappeGetOne } from '@/hooks/use-frappe';
+import { useDoctorList, usePractitionerSchedule, usePractitionerAppointments, useFrappeGetOne, useAppointmentTypes } from '@/hooks/use-frappe';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { useAuth } from '@/lib/auth-context';
 import Link from 'next/link';
@@ -54,6 +54,10 @@ export default function BookAppointmentPage() {
   const { data: doctorData, isLoading: doctorLoading } = useDoctorList();
   const doctors = doctorData?.data || [];
 
+  const { data: apptTypeData } = useAppointmentTypes();
+  const appointmentTypes = apptTypeData?.data || [];
+  const defaultAppointmentType = appointmentTypes.length > 0 ? appointmentTypes[0].name : '';
+
   const [showPayment, setShowPayment] = useState(false);
   const [isPaying, setIsPaying] = useState(false);
   const [form, setForm] = useState({
@@ -62,10 +66,17 @@ export default function BookAppointmentPage() {
     department: '',
     appointment_date: '',
     appointment_time: '',
-    appointment_type: 'General Consultation',
+    appointment_type: '',
     notes: '',
     patient_type: 'self' as 'self' | 'relative',
   });
+
+  // Set default appointment type once types are loaded
+  useEffect(() => {
+    if (defaultAppointmentType && !form.appointment_type) {
+      setForm((prev) => ({ ...prev, appointment_type: defaultAppointmentType }));
+    }
+  }, [defaultAppointmentType]);
 
   const [relative, setRelative] = useState({
     first_name: '',
@@ -292,7 +303,11 @@ export default function BookAppointmentPage() {
                   <div className="relative mb-4">
                     <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-2xl bg-[#F4F7FA] flex items-center justify-center overflow-hidden">
                       {doctor.image ? (
-                        <img src={doctor.image} alt={doctor.practitioner_name} className="h-full w-full object-cover" />
+                        <img
+                          src={doctor.image.startsWith('http') ? doctor.image : `${process.env.NEXT_PUBLIC_FRAPPE_URL}${doctor.image}`}
+                          alt={doctor.practitioner_name}
+                          className="h-full w-full object-cover"
+                        />
                       ) : (
                         <span className="text-lg sm:text-xl font-semibold text-[#9CA3AF]">
                           {doctor.practitioner_name ? doctor.practitioner_name.split(' ').filter(Boolean).map((n: string) => n[0]).join('').toUpperCase().slice(0, 2) : 'D'}
@@ -421,6 +436,24 @@ export default function BookAppointmentPage() {
                   {form.department || 'Family Medicine'}
                 </p>
               </div>
+            </div>
+
+            {/* Appointment Type */}
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-[1px] text-[#6C7087] mb-2" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
+                Appointment Type
+              </label>
+              <select
+                value={form.appointment_type}
+                onChange={(e) => setForm({ ...form, appointment_type: e.target.value })}
+                className="w-full px-4 py-3 border border-gray-200 bg-white text-sm text-[#333333] focus:outline-none focus:border-[#001E42]"
+                style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }}
+              >
+                {appointmentTypes.length === 0 && <option value="">Loading...</option>}
+                {appointmentTypes.map((type: any) => (
+                  <option key={type.name} value={type.name}>{type.name}</option>
+                ))}
+              </select>
             </div>
 
             {/* Patient Profile */}

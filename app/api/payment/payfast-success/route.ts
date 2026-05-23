@@ -114,6 +114,17 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    // Fetch first available Appointment Type if none provided
+    let resolvedAppointmentType = appointment_type;
+    if (!resolvedAppointmentType) {
+      try {
+        const apptTypeRes = await frappe.get('/resource/Appointment Type?fields=["name"]&limit_page_length=1');
+        resolvedAppointmentType = apptTypeRes.data?.data?.[0]?.name || '';
+      } catch {
+        resolvedAppointmentType = '';
+      }
+    }
+
     // 1. Create Patient Appointment first
     const apptRes = await frappe.post('/resource/Patient Appointment', {
       patient,
@@ -123,7 +134,7 @@ export async function GET(request: NextRequest) {
       department,
       appointment_date,
       appointment_time,
-      appointment_type: appointment_type || 'General Consultation',
+      appointment_type: resolvedAppointmentType,
       duration: 30,
       status: 'Scheduled',
       notes: notes || '',
@@ -137,19 +148,29 @@ export async function GET(request: NextRequest) {
       throw new Error('Failed to create Patient Appointment');
     }
 
-    // 2. Create Sales Invoice
-    // Use the existing consultation item code from Frappe
-    const consultationItemCode = 'CN-1';
-    
+    // 2. Fetch practitioner's consultation item code
+    let consultationItemCode = 'CN-1';
+    try {
+      const practitionerRes = await frappe.get(`/resource/Healthcare Practitioner/${practitioner}`);
+      const practitionerData = practitionerRes.data?.data || {};
+      consultationItemCode = practitionerData.op_consulting_charge_item || practitionerData.consultation_charge_item || 'CN-1';
+      console.log('[PayFast Success] Using item code:', consultationItemCode);
+    } catch (practitionerErr) {
+      console.error('[PayFast Success] Could not fetch practitioner item code, using default:', practitionerErr);
+    }
+
+    // 3. Create Sales Invoice
+    // Use appointment_date as the posting date to avoid timezone issues with server validation
+    const invoiceDate = appointment_date || new Date().toISOString().split('T')[0];
     const invoiceRes = await frappe.post('/resource/Sales Invoice', {
       customer: patient_name || patient,
       patient: patient,
-      posting_date: new Date().toISOString().split('T')[0],
-      due_date: new Date().toISOString().split('T')[0],
+      posting_date: invoiceDate,
+      due_date: invoiceDate,
       items: [
         {
           item_code: consultationItemCode,
-          item_name: appointment_type || 'General Consultation',
+          item_name: appointment_type || 'Consultation',
           description: `Consultation fee - ${practitioner_name || practitioner}`,
           qty: 1,
           rate: amount,
@@ -179,12 +200,13 @@ export async function GET(request: NextRequest) {
     }
 
     // 3. Create Payment Entry
+    let paymentEntryId: string | undefined;
     if (invoiceId) {
-      await frappe.post('/resource/Payment Entry', {
+      const paymentRes = await frappe.post('/resource/Payment Entry', {
         payment_type: 'Receive',
         party_type: 'Customer',
         party: patient_name || patient,
-        posting_date: new Date().toISOString().split('T')[0],
+        posting_date: invoiceDate,
         paid_amount: amount,
         received_amount: amount,
         target_exchange_rate: 1,
@@ -200,6 +222,19 @@ export async function GET(request: NextRequest) {
           },
         ],
       });
+      paymentEntryId = paymentRes.data?.data?.name;
+
+      // 3b. Submit the Payment Entry
+      if (paymentEntryId) {
+        try {
+          await frappe.put(`/resource/Payment Entry/${paymentEntryId}`, {
+            docstatus: 1,
+          });
+          console.log('[PayFast Success] Payment Entry submitted:', paymentEntryId);
+        } catch (submitErr: any) {
+          console.error('[PayFast Success] Failed to submit Payment Entry:', submitErr?.response?.data || submitErr.message);
+        }
+      }
     }
 
     // Clean up pending payment data
