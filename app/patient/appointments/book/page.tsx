@@ -226,54 +226,113 @@ export default function BookAppointmentPage() {
   // Step 1: Doctor Selection
   if (!selectedDoctorId) {
     return (
-      <div className="space-y-6">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
-          <div>
-            <Link href="/patient/appointments" className="text-sm text-[#E500BB] hover:text-[#001E42] font-semibold transition-colors" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
-              &larr; Back to Appointments
-            </Link>
-            <h1 className="text-xl sm:text-2xl font-semibold text-[#333333] mt-2" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Select a Doctor</h1>
+      <div className="space-y-8">
+        {/* Hero Header */}
+        <div className="text-center space-y-4">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#FCE7EC] text-[#E500BB] text-[11px] font-bold uppercase tracking-[2px] rounded-full" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E500BB]"></span>
+            Premium Healthcare
+          </span>
+          <h1 className="text-2xl sm:text-3xl font-semibold text-[#333333]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
+            Find Your Best <span className="text-[#E500BB]">Specialist</span>
+          </h1>
+          <p className="text-sm text-[#6C7087] max-w-md mx-auto" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
+            Book appointments with world-class practitioners and manage your healthcare journey in one place.
+          </p>
+        </div>
+
+        {/* Search Bar */}
+        <div className="max-w-2xl mx-auto flex items-center gap-2">
+          <div className="flex-1 relative">
+            <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6C7087]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input
+              type="text"
+              placeholder="Search by doctor name or expertise..."
+              className="w-full pl-10 pr-4 py-3 border border-gray-200 bg-white text-sm text-[#333333] placeholder-[#9CA3AF] focus:outline-none focus:border-[#E500BB] transition-colors"
+              style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }}
+            />
           </div>
+          <button
+            className="px-6 py-3 bg-[#1F2937] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#111827] transition-colors flex items-center gap-2"
+            style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }}
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            Search
+          </button>
+        </div>
+
+        {/* Section Title */}
+        <div>
+          <h2 className="text-lg sm:text-xl font-semibold text-[#333333]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
+            Top Rated Specialists
+          </h2>
+          <p className="text-sm text-[#6C7087] mt-1" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
+            <span className="w-1.5 h-1.5 inline-block rounded-full bg-[#10B981] mr-1.5"></span>
+            {doctors.length} active practitioner{doctors.length !== 1 ? 's' : ''} available
+          </p>
         </div>
 
         {doctorLoading ? (
           <LoadingSpinner className="py-12" />
         ) : doctors.length === 0 ? (
-          <p className="text-center text-[#6C7087] py-12" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>No doctors found</p>
+          <p className="text-center text-[#6C7087] py-12" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>No doctors found</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {doctors.map((doctor: any) => (
-              <button
-                key={doctor.name}
-                onClick={() => handleSelectDoctor(doctor.name)}
-                className="bg-white border border-gray-100 overflow-hidden hover:shadow-sm transition-shadow text-left"
-              >
-                <div className="h-28 sm:h-32 bg-[#001E42]"></div>
-                <div className="px-4 sm:px-6 pb-5 sm:pb-6">
-                  <div className="relative -mt-10 sm:-mt-12 mb-4">
-                    <div className="h-20 w-20 sm:h-24 sm:w-24 bg-white p-1 shadow-sm">
+                <button
+                  key={doctor.name}
+                  onClick={() => handleSelectDoctor(doctor.name)}
+                  className="bg-white rounded-2xl border border-gray-100 p-5 sm:p-6 hover:shadow-md transition-shadow text-left"
+                >
+                  {/* Avatar */}
+                  <div className="relative mb-4">
+                    <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-2xl bg-[#F4F7FA] flex items-center justify-center overflow-hidden">
                       {doctor.image ? (
-                        <img src={doctor.image} alt={doctor.practitioner_name}
-                          className="h-full w-full object-cover" />
+                        <img src={doctor.image} alt={doctor.practitioner_name} className="h-full w-full object-cover" />
                       ) : (
-                        <div className="h-full w-full bg-[#F4F7FA] flex items-center justify-center text-2xl sm:text-3xl">👩‍⚕️</div>
+                        <span className="text-lg sm:text-xl font-semibold text-[#9CA3AF]">
+                          {doctor.practitioner_name ? doctor.practitioner_name.split(' ').filter(Boolean).map((n: string) => n[0]).join('').toUpperCase().slice(0, 2) : 'D'}
+                        </span>
                       )}
                     </div>
+                    {doctor.status === 'Active' && (
+                      <span className="absolute bottom-0 left-12 sm:left-16 w-3 h-3 rounded-full bg-[#10B981] border-2 border-white"></span>
+                    )}
                   </div>
-                  <h3 className="text-base sm:text-lg font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>{doctor.practitioner_name}</h3>
-                  <p className="text-xs sm:text-sm text-[#E500BB] font-medium" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{doctor.designation}</p>
-                  <p className="text-xs sm:text-sm text-[#6C7087] mt-1" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{doctor.department}</p>
-                  {doctor.bio && <p className="text-xs sm:text-sm text-[#666666] mt-3 line-clamp-3" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{doctor.bio}</p>}
-                  <div className="mt-4 flex items-center justify-between">
-                    <span className={`px-2 sm:px-3 py-1 text-xs font-semibold ${
-                      doctor.status === 'Active' ? 'bg-[#F2F8F5] text-[#001E42]' : 'bg-[#F4F7FA] text-[#6C7087]'
-                    }`} style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{doctor.status}</span>
-                    <span className="text-xs sm:text-sm text-[#E500BB] font-semibold" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
-                      Select &rarr;
-                    </span>
+
+                  {/* Specialty */}
+                  <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-[#E500BB] mb-1" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
+                    {doctor.department || 'Family Medicine'}
+                  </p>
+
+                  {/* Name */}
+                  <h3 className="text-base sm:text-lg font-semibold text-[#1F2937] mb-3" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
+                    {doctor.practitioner_name}
+                  </h3>
+
+                  {/* Fee & Rating */}
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-[#9CA3AF]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Fee Starting</p>
+                      <p className="text-sm font-semibold text-[#1F2937]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
+                        Premium
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-[#9CA3AF]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Rating</p>
+                      <p className="text-sm font-semibold text-[#1F2937] flex items-center gap-1" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
+                        <svg className="w-3.5 h-3.5 text-[#F59E0B]" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        4.9
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </button>
+                </button>
             ))}
           </div>
         )}
@@ -323,10 +382,7 @@ export default function BookAppointmentPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl sm:text-2xl font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>
-          Book Appointment
-        </h1>
+      <div className="flex items-center justify-end">
         <button
           onClick={() => router.push('/patient/appointments/book')}
           className="text-[#333333] hover:text-[#001E42] transition-colors"
@@ -340,10 +396,10 @@ export default function BookAppointmentPage() {
 
       {/* Step indicator */}
       <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold uppercase tracking-[2px] text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+        <span className="text-xs font-semibold uppercase tracking-[2px] text-[#333333]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
           Appointment Booking
         </span>
-        <span className="text-xs font-semibold uppercase tracking-[2px] text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+        <span className="text-xs font-semibold uppercase tracking-[2px] text-[#6C7087]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
           Step 2/3
         </span>
       </div>
@@ -354,14 +410,14 @@ export default function BookAppointmentPage() {
           <div className="lg:col-span-3 space-y-6">
             {/* Doctor Info */}
             <div className="flex items-center gap-3">
-              <div className="h-12 w-12 bg-[#001E42] rounded-lg flex items-center justify-center text-white text-lg font-semibold shrink-0">
+              <div className="h-12 w-12 bg-[#E500BB] rounded-lg flex items-center justify-center text-white text-lg font-semibold shrink-0">
                 {form.practitioner_name ? form.practitioner_name.charAt(0).toUpperCase() : 'D'}
               </div>
               <div>
-                <p className="text-sm font-semibold text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+                <p className="text-sm font-semibold text-[#333333]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
                   {form.practitioner_name || 'Loading...'}
                 </p>
-                <p className="text-xs text-[#6C7087] uppercase font-medium" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+                <p className="text-xs text-[#6C7087] uppercase font-medium" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
                   {form.department || 'Family Medicine'}
                 </p>
               </div>
@@ -369,14 +425,14 @@ export default function BookAppointmentPage() {
 
             {/* Patient Profile */}
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-[1px] text-[#6C7087] mb-2" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+              <label className="block text-xs font-semibold uppercase tracking-[1px] text-[#6C7087] mb-2" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
                 Patient Profile
               </label>
               <select
                 value={form.patient_type}
                 onChange={(e) => setForm({ ...form, patient_type: e.target.value as 'self' | 'relative' })}
                 className="w-full px-4 py-3 border border-gray-200 bg-white text-sm text-[#333333] focus:outline-none focus:border-[#001E42]"
-                style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}
+                style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }}
               >
                 <option value="self">Myself — {patientName || 'Loading...'}</option>
                 <option value="relative">Someone Else (Relative)</option>
@@ -386,41 +442,41 @@ export default function BookAppointmentPage() {
             {/* Relative Details Form */}
             {form.patient_type === 'relative' && (
               <div className="space-y-4 border-t border-gray-100 pt-4">
-                <p className="text-xs font-semibold uppercase tracking-[1px] text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+                <p className="text-xs font-semibold uppercase tracking-[1px] text-[#6C7087]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
                   Relative Details
                 </p>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs text-[#6C7087] mb-1" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>First Name</label>
+                    <label className="block text-xs text-[#6C7087] mb-1" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>First Name</label>
                     <input
                       type="text"
                       required
                       value={relative.first_name}
                       onChange={(e) => setRelative({ ...relative, first_name: e.target.value })}
                       className="w-full px-3 py-2 border border-gray-200 text-sm text-[#333333] focus:outline-none focus:border-[#001E42]"
-                      style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}
+                      style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs text-[#6C7087] mb-1" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Last Name</label>
+                    <label className="block text-xs text-[#6C7087] mb-1" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Last Name</label>
                     <input
                       type="text"
                       required
                       value={relative.last_name}
                       onChange={(e) => setRelative({ ...relative, last_name: e.target.value })}
                       className="w-full px-3 py-2 border border-gray-200 text-sm text-[#333333] focus:outline-none focus:border-[#001E42]"
-                      style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}
+                      style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }}
                     />
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs text-[#6C7087] mb-1" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Sex</label>
+                    <label className="block text-xs text-[#6C7087] mb-1" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Sex</label>
                     <select
                       value={relative.sex}
                       onChange={(e) => setRelative({ ...relative, sex: e.target.value as 'Male' | 'Female' | 'Other' })}
                       className="w-full px-3 py-2 border border-gray-200 text-sm text-[#333333] focus:outline-none focus:border-[#001E42]"
-                      style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}
+                      style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }}
                     >
                       <option>Male</option>
                       <option>Female</option>
@@ -428,12 +484,12 @@ export default function BookAppointmentPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs text-[#6C7087] mb-1" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Relationship</label>
+                    <label className="block text-xs text-[#6C7087] mb-1" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Relationship</label>
                     <select
                       value={relative.relationship}
                       onChange={(e) => setRelative({ ...relative, relationship: e.target.value as typeof relative.relationship })}
                       className="w-full px-3 py-2 border border-gray-200 text-sm text-[#333333] focus:outline-none focus:border-[#001E42]"
-                      style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}
+                      style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }}
                     >
                       <option>Son</option>
                       <option>Daughter</option>
@@ -447,34 +503,34 @@ export default function BookAppointmentPage() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs text-[#6C7087] mb-1" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Date of Birth</label>
+                  <label className="block text-xs text-[#6C7087] mb-1" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Date of Birth</label>
                   <input
                     type="date"
                     required
                     value={relative.dob}
                     onChange={(e) => setRelative({ ...relative, dob: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-200 text-sm text-[#333333] focus:outline-none focus:border-[#001E42]"
-                    style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}
+                    style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }}
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-[#6C7087] mb-1" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Mobile</label>
+                  <label className="block text-xs text-[#6C7087] mb-1" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Mobile</label>
                   <input
                     type="tel"
                     required
                     value={relative.mobile}
                     onChange={(e) => setRelative({ ...relative, mobile: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-200 text-sm text-[#333333] focus:outline-none focus:border-[#001E42]"
-                    style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}
+                    style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }}
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-[#6C7087] mb-1" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Blood Group</label>
+                  <label className="block text-xs text-[#6C7087] mb-1" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Blood Group</label>
                   <select
                     value={relative.blood_group}
                     onChange={(e) => setRelative({ ...relative, blood_group: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-200 text-sm text-[#333333] focus:outline-none focus:border-[#001E42]"
-                    style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}
+                    style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }}
                   >
                     <option value="">Select</option>
                     <option value="A Positive">A+</option>
@@ -494,17 +550,17 @@ export default function BookAppointmentPage() {
           {/* Center - Calendar */}
           <div className="lg:col-span-5">
             <div className="bg-white border border-gray-100 p-4 sm:p-6">
-              <p className="text-xs font-semibold uppercase tracking-[2px] text-[#6C7087] text-center mb-4" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+              <p className="text-xs font-semibold uppercase tracking-[2px] text-[#6C7087] text-center mb-4" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
                 Select Date
               </p>
 
               {/* Month navigation */}
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <p className="text-xl font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>
+                  <p className="text-xl font-semibold text-[#333333]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
                     {new Date(calendarYear, calendarMonth).toLocaleDateString('en-US', { month: 'long' })}
                   </p>
-                  <p className="text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+                  <p className="text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
                     {calendarYear}
                   </p>
                 </div>
@@ -533,7 +589,7 @@ export default function BookAppointmentPage() {
               {/* Weekday headers */}
               <div className="grid grid-cols-7 gap-1 mb-2">
                 {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map((d) => (
-                  <div key={d} className="text-center text-xs font-semibold text-[#6C7087] py-2" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+                  <div key={d} className="text-center text-xs font-semibold text-[#6C7087] py-2" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
                     {d}
                   </div>
                 ))}
@@ -560,14 +616,14 @@ export default function BookAppointmentPage() {
                       disabled={isPast}
                       className={`h-10 w-10 mx-auto flex items-center justify-center text-sm font-medium transition-colors ${
                         isSelected
-                          ? 'bg-[#001E42] text-white rounded-full'
+                          ? 'bg-[#E500BB] text-white rounded-full'
                           : isToday
                           ? 'text-[#E500BB]'
                           : isPast
                           ? 'text-gray-300 cursor-not-allowed'
                           : 'text-[#333333] hover:bg-gray-100'
                       }`}
-                      style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}
+                      style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
                     >
                       {day}
                     </button>
@@ -580,7 +636,7 @@ export default function BookAppointmentPage() {
           {/* Right Sidebar - Time Slots */}
           <div className="lg:col-span-4">
             <div className="bg-white border border-gray-100 p-4 sm:p-6 h-full">
-              <p className="text-xs font-semibold uppercase tracking-[2px] text-[#6C7087] mb-4" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+              <p className="text-xs font-semibold uppercase tracking-[2px] text-[#6C7087] mb-4" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
                 Available Time Slots
               </p>
 
@@ -589,7 +645,7 @@ export default function BookAppointmentPage() {
                   <div className="space-y-6">
                     {afternoonSlots.length > 0 && (
                       <div>
-                        <p className="text-xs font-semibold uppercase tracking-[1px] text-[#6C7087] mb-3" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+                        <p className="text-xs font-semibold uppercase tracking-[1px] text-[#6C7087] mb-3" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
                           Afternoon
                         </p>
                         <div className="grid grid-cols-2 gap-2">
@@ -600,10 +656,10 @@ export default function BookAppointmentPage() {
                               onClick={() => setForm({ ...form, appointment_time: slot.from_time })}
                               className={`px-3 py-2 text-sm border transition-colors ${
                                 form.appointment_time === slot.from_time
-                                  ? 'bg-[#001E42] text-white border-[#001E42]'
-                                  : 'bg-white text-[#333333] border-gray-200 hover:border-[#001E42]'
+                                  ? 'bg-[#E500BB] text-white border-[#E500BB]'
+                                  : 'bg-white text-[#333333] border-gray-200 hover:border-[#E500BB]'
                               }`}
-                              style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}
+                              style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
                             >
                               {formatTime(slot.from_time)}
                             </button>
@@ -613,7 +669,7 @@ export default function BookAppointmentPage() {
                     )}
                     {eveningSlots.length > 0 && (
                       <div>
-                        <p className="text-xs font-semibold uppercase tracking-[1px] text-[#6C7087] mb-3" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+                        <p className="text-xs font-semibold uppercase tracking-[1px] text-[#6C7087] mb-3" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
                           Evening
                         </p>
                         <div className="grid grid-cols-2 gap-2">
@@ -624,10 +680,10 @@ export default function BookAppointmentPage() {
                               onClick={() => setForm({ ...form, appointment_time: slot.from_time })}
                               className={`px-3 py-2 text-sm border transition-colors ${
                                 form.appointment_time === slot.from_time
-                                  ? 'bg-[#001E42] text-white border-[#001E42]'
-                                  : 'bg-white text-[#333333] border-gray-200 hover:border-[#001E42]'
+                                  ? 'bg-[#E500BB] text-white border-[#E500BB]'
+                                  : 'bg-white text-[#333333] border-gray-200 hover:border-[#E500BB]'
                               }`}
-                              style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}
+                              style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
                             >
                               {formatTime(slot.from_time)}
                             </button>
@@ -636,18 +692,18 @@ export default function BookAppointmentPage() {
                       </div>
                     )}
                     {afternoonSlots.length === 0 && eveningSlots.length === 0 && (
-                      <p className="text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+                      <p className="text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
                         No slots available for this date
                       </p>
                     )}
                   </div>
                 ) : (
-                  <p className="text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+                  <p className="text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
                     No slots available for this date
                   </p>
                 )
               ) : (
-                <p className="text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+                <p className="text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
                   Select a date to view available slots
                 </p>
               )}
@@ -663,7 +719,7 @@ export default function BookAppointmentPage() {
             type="button"
             onClick={() => router.push('/patient/appointments/book')}
             className="px-6 py-3 bg-white text-[#333333] text-xs font-bold uppercase tracking-[2px] border border-gray-200 hover:border-[#333333] transition-colors"
-            style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}
+            style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
           >
             Back
           </button>
@@ -676,8 +732,8 @@ export default function BookAppointmentPage() {
               (form.patient_type === 'relative' &&
                 (!relative.first_name || !relative.last_name || !relative.dob || !relative.mobile))
             }
-            className="px-6 py-3 bg-white text-[#333333] text-xs font-bold uppercase tracking-[2px] border border-gray-200 hover:border-[#333333] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-            style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}
+            className="px-6 py-3 bg-[#E500BB] text-white text-xs font-bold uppercase tracking-[2px] border border-[#E500BB] hover:bg-[#c400a0] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
           >
             Book Slot
           </button>

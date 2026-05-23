@@ -85,12 +85,12 @@ export default function RegisterPage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h2 className="text-xl sm:text-2xl font-semibold text-[#001E42] mb-4" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Registration Successful!</h2>
-          <p className="text-sm sm:text-base text-[#666666] mb-6" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Your account has been created. You can now log in.</p>
+          <h2 className="text-xl sm:text-2xl font-semibold text-[#001E42] mb-4" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Registration Successful!</h2>
+          <p className="text-sm sm:text-base text-[#666666] mb-6" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Your account has been created. You can now log in.</p>
           <Link
             href="/login"
-            className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] transition-colors"
-            style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}
+            className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-[#E500BB] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#c400a0] transition-colors"
+            style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
           >
             Go to Login
           </Link>
@@ -106,72 +106,72 @@ export default function RegisterPage() {
           <Image
             src="/logo.png"
             alt="Zan Center"
-            width={56}
-            height={56}
-            className="mx-auto mb-4 object-contain w-14 h-14 sm:w-16 sm:h-16"
+            width={240}
+            height={80}
+            className="mx-auto mb-6 object-contain w-auto h-[80px] sm:h-[100px]"
+            priority
           />
-          <h2 className="text-center text-2xl sm:text-3xl font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Zan Center</h2>
-          <p className="mt-2 text-center text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Create your patient account</p>
+          <p className="text-center text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Create your patient account</p>
         </div>
 
         <form className="mt-8 space-y-4" onSubmit={handleSubmit}>
           {error && (
-            <div className="bg-[#FCE7EC] border border-[#E500BB]/20 text-[#001E42] px-4 py-3 text-sm" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{error}</div>
+            <div className="bg-[#FCE7EC] border border-[#E500BB]/20 text-[#001E42] px-4 py-3 text-sm" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>{error}</div>
           )}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>First Name</label>
+              <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>First Name</label>
               <input name="first_name" required value={form.first_name} onChange={handleChange}
                 className="mt-1 block w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#001E42] text-sm"
-                style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }} />
+                style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Last Name</label>
+              <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Last Name</label>
               <input name="last_name" required value={form.last_name} onChange={handleChange}
                 className="mt-1 block w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#001E42] text-sm"
-                style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }} />
+                style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }} />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Email</label>
+            <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Email</label>
             <input name="email" type="email" required value={form.email} onChange={handleChange}
               className="mt-1 block w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#001E42] text-sm"
-              style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }} />
+              style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }} />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Mobile</label>
+            <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Mobile</label>
             <input name="mobile" required value={form.mobile} onChange={handleChange}
               className="mt-1 block w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#001E42] text-sm"
-              style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }} />
+              style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }} />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Sex</label>
+              <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Sex</label>
               <select name="sex" value={form.sex} onChange={handleChange}
                 className="mt-1 block w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#001E42] text-sm"
-                style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}>
+                style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }}>
                 <option>Male</option>
                 <option>Female</option>
                 <option>Other</option>
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Date of Birth</label>
+              <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Date of Birth</label>
               <input name="dob" type="date" required value={form.dob} onChange={handleChange}
                 className="mt-1 block w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#001E42] text-sm"
-                style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }} />
+                style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }} />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Blood Group</label>
+            <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Blood Group</label>
             <select name="blood_group" value={form.blood_group} onChange={handleChange}
               className="mt-1 block w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#001E42] text-sm"
-              style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}>
+              style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }}>
               <option value="">Select</option>
               <option value="A Positive">A+</option>
               <option value="A Negative">A-</option>
@@ -185,21 +185,21 @@ export default function RegisterPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Password</label>
+            <label className="block text-sm font-medium text-[#333333]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Password</label>
             <input name="password" type="password" required value={form.password} onChange={handleChange}
               className="mt-1 block w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[#001E42] text-sm"
-              style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }} />
+              style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }} />
           </div>
 
           <button type="submit" disabled={loading}
-            className="w-full py-4 px-4 border border-transparent text-xs font-bold uppercase tracking-[2px] text-white bg-[#001E42] hover:bg-[#002a5c] focus:outline-none disabled:opacity-50 transition-colors"
-            style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif", borderRadius: 0 }}>
+            className="w-full py-4 px-4 border border-transparent text-xs font-bold uppercase tracking-[2px] text-white bg-[#E500BB] hover:bg-[#c400a0] focus:outline-none disabled:opacity-50 transition-colors"
+            style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }}>
             {loading ? 'Creating account...' : 'Create Account'}
           </button>
         </form>
 
         <div className="text-center">
-          <p className="text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+          <p className="text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
             Already have an account?{' '}
             <Link href="/login" className="text-[#E500BB] hover:text-[#001E42] font-semibold transition-colors">Sign in</Link>
           </p>

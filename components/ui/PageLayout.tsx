@@ -3,6 +3,7 @@
 import { Sidebar } from './Sidebar';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/lib/auth-context';
+import Link from 'next/link';
 
 interface NavItem {
   label: string;
@@ -55,23 +56,31 @@ export function PageLayout({ children, sections, portalName }: PageLayoutProps) 
           {/* Page Title */}
           <h1
             className="text-lg font-semibold text-[#333333]"
-            style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}
+            style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
           >
             {pageTitle}
           </h1>
 
-          {/* Right Side: User */}
+          {/* Right Side: Book + User */}
           <div className="flex items-center gap-4">
+            <Link
+              href="/patient/appointments/book"
+              className="px-4 py-2 bg-[#E500BB] text-white text-[11px] font-bold uppercase tracking-[2px] hover:bg-[#c400a0] transition-colors"
+              style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
+            >
+              Book Appointment
+            </Link>
+
             {/* User Info */}
             <div className="flex items-center gap-2">
               {/* Avatar */}
-              <div className="w-8 h-8 rounded-full bg-[#001E42] flex items-center justify-center text-white text-xs font-semibold">
+              <div className="w-8 h-8 rounded-full bg-[#E500BB] flex items-center justify-center text-white text-xs font-semibold">
                 {getUserInitials(user?.full_name)}
               </div>
               {/* Name */}
               <span
                 className="text-sm text-[#333333] hidden sm:block"
-                style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}
+                style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
               >
                 {user?.full_name || 'Guest'}
               </span>
