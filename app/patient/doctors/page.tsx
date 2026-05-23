@@ -89,7 +89,11 @@ export default function DoctorsPage() {
                 <div className="relative mb-4">
                   <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-2xl bg-[#F4F7FA] flex items-center justify-center overflow-hidden">
                     {doctor.image ? (
-                      <img src={doctor.image} alt={doctor.practitioner_name} className="h-full w-full object-cover" />
+                      <img
+                        src={doctor.image.startsWith('http') ? doctor.image : `${process.env.NEXT_PUBLIC_FRAPPE_URL}${doctor.image}`}
+                        alt={doctor.practitioner_name}
+                        className="h-full w-full object-cover"
+                      />
                     ) : (
                       <span className="text-lg sm:text-xl font-semibold text-[#9CA3AF]">{getInitials(doctor.practitioner_name)}</span>
                     )}
