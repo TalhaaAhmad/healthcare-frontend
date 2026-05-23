@@ -32,7 +32,7 @@ export function Sidebar({ sections, portalName }: SidebarProps) {
       {/* Mobile Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 left-4 z-[60] lg:hidden p-2 bg-[#001E42] text-white"
+        className="fixed top-4 left-4 z-[60] lg:hidden p-2 bg-[#E500BB] text-white"
         aria-label="Toggle menu"
       >
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -58,34 +58,16 @@ export function Sidebar({ sections, portalName }: SidebarProps) {
           ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
       >
         {/* Logo Section */}
-        <div className="px-5 py-5 border-b border-gray-200">
-          <Link href="/" className="flex items-center gap-3" onClick={() => setIsOpen(false)}>
+        <div className="h-[60px] px-5 flex items-center justify-center border-b border-gray-200 shrink-0">
+          <Link href="/" className="flex items-center justify-center h-full" onClick={() => setIsOpen(false)}>
             <Image
               src="/logo.png"
               alt="Zan Center"
-              width={36}
-              height={36}
-              className="object-contain"
+              width={180}
+              height={48}
+              className="object-contain w-auto h-[48px]"
+              priority
             />
-            <div className="flex flex-col">
-              <span
-                className="text-sm font-semibold tracking-wide leading-tight"
-                style={{
-                  fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif",
-                  color: '#E500BB',
-                }}
-              >
-                ZAN CENTER
-              </span>
-              <span
-                className="text-[10px] uppercase tracking-[2px] text-[#6C7087] leading-tight"
-                style={{
-                  fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif",
-                }}
-              >
-                {portalName}
-              </span>
-            </div>
           </Link>
         </div>
 
@@ -98,7 +80,7 @@ export function Sidebar({ sections, portalName }: SidebarProps) {
                 <span
                   className="text-[11px] font-semibold uppercase tracking-[1px] text-[#6C7087]"
                   style={{
-                    fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif",
+                    fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif",
                   }}
                 >
                   {group.section}
@@ -119,7 +101,7 @@ export function Sidebar({ sections, portalName }: SidebarProps) {
                             : 'text-[#333333] hover:bg-[#F4F7FA] hover:text-[#E500BB]'
                         }`}
                         style={{
-                          fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif",
+                          fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif",
                         }}
                       >
                         {isActive && (
@@ -140,9 +122,9 @@ export function Sidebar({ sections, portalName }: SidebarProps) {
         <div className="px-4 py-4 border-t border-gray-200">
           <button
             onClick={logout}
-            className="w-full px-4 py-2.5 text-xs font-bold uppercase tracking-[2px] text-white bg-[#001E42] hover:bg-[#002a5c] transition-colors"
+            className="w-full px-4 py-2.5 text-xs font-bold uppercase tracking-[2px] text-white bg-[#E500BB] hover:bg-[#c400a0] transition-colors"
             style={{
-              fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif",
+              fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif",
             }}
           >
             Logout

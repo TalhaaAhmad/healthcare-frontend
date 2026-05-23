@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { EB_Garamond, Open_Sans } from "next/font/google";
+import { Inter, Open_Sans } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 
-const ebGaramond = EB_Garamond({
-  variable: "--font-eb-garamond",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${ebGaramond.variable} ${openSans.variable} h-full antialiased`}
+      className={`${inter.variable} ${openSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <Providers>{children}</Providers>

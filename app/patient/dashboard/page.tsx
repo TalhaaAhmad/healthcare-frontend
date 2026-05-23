@@ -46,35 +46,24 @@ export default function PatientDashboard() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
-        <h1 className="text-xl sm:text-2xl font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Dashboard</h1>
-        <Link
-          href="/patient/appointments/book"
-          className="px-4 sm:px-6 py-2.5 sm:py-3 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] transition-colors"
-          style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}
-        >
-          Book Appointment
-        </Link>
-      </div>
-
       {error && (
-        <div className="bg-[#FCE7EC] border border-[#E500BB]/20 text-[#001E42] px-4 py-3 text-sm" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+        <div className="bg-[#FCE7EC] border border-[#E500BB]/20 text-[#001E42] px-4 py-3 text-sm" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
           Failed to load appointments. Please try again later.
         </div>
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
         <div className="bg-white p-4 sm:p-6 border border-gray-100">
-          <p className="text-xs sm:text-sm font-medium text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Upcoming Appointments</p>
-          <p className="mt-2 text-2xl sm:text-3xl font-semibold text-[#001E42]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>{upcoming.length}</p>
+          <p className="text-xs sm:text-sm font-medium text-[#6C7087]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Upcoming Appointments</p>
+          <p className="mt-2 text-2xl sm:text-3xl font-semibold text-[#001E42]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>{upcoming.length}</p>
         </div>
         <div className="bg-white p-4 sm:p-6 border border-gray-100">
-          <p className="text-xs sm:text-sm font-medium text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Total Appointments</p>
-          <p className="mt-2 text-2xl sm:text-3xl font-semibold text-[#E500BB]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>{appointments.length}</p>
+          <p className="text-xs sm:text-sm font-medium text-[#6C7087]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Total Appointments</p>
+          <p className="mt-2 text-2xl sm:text-3xl font-semibold text-[#E500BB]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>{appointments.length}</p>
         </div>
         <div className="bg-white p-4 sm:p-6 border border-gray-100 sm:col-span-2 md:col-span-1">
-          <p className="text-xs sm:text-sm font-medium text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>Next Visit</p>
-          <p className="mt-2 text-base sm:text-lg font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>
+          <p className="text-xs sm:text-sm font-medium text-[#6C7087]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Next Visit</p>
+          <p className="mt-2 text-base sm:text-lg font-semibold text-[#333333]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
             {upcoming[0]?.appointment_date || 'No upcoming visits'}
           </p>
         </div>
@@ -82,34 +71,34 @@ export default function PatientDashboard() {
 
       <div className="bg-white border border-gray-100">
         <div className="px-6 py-4 border-b border-gray-100">
-          <h2 className="text-lg font-semibold text-[#333333]" style={{ fontFamily: "var(--font-eb-garamond), 'EB Garamond', Georgia, serif" }}>Recent Appointments</h2>
+          <h2 className="text-lg font-semibold text-[#333333]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Recent Appointments</h2>
         </div>
         <div className="divide-y divide-gray-100">
           {isLoading ? (
             <LoadingSpinner className="py-8" />
           ) : appointments.length === 0 ? (
-            <p className="px-6 py-8 text-center text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>No appointments found</p>
+            <p className="px-6 py-8 text-center text-[#6C7087]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>No appointments found</p>
           ) : (
             appointments.slice(0, 5).map((appt: any) => (
               <div key={appt.name} className="px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0 hover:bg-[#F4F7FA] transition-colors">
                 <div>
-                  <p className="font-medium text-sm sm:text-base text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appt.practitioner_name}</p>
-                  <p className="text-xs sm:text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appt.department}</p>
+                  <p className="font-medium text-sm sm:text-base text-[#333333]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>{appt.practitioner_name}</p>
+                  <p className="text-xs sm:text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>{appt.department}</p>
                   {appt.patient_name && appt.patient_name !== user?.full_name && (
-                    <p className="text-xs text-[#E500BB] font-medium mt-0.5" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>for {appt.patient_name}</p>
+                    <p className="text-xs text-[#E500BB] font-medium mt-0.5" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>for {appt.patient_name}</p>
                   )}
                 </div>
                 <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-6">
                   <div className="text-left sm:text-right">
-                    <p className="text-xs sm:text-sm text-[#333333]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appt.appointment_date}</p>
-                    <p className="text-xs sm:text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>{appt.appointment_time}</p>
+                    <p className="text-xs sm:text-sm text-[#333333]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>{appt.appointment_date}</p>
+                    <p className="text-xs sm:text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>{appt.appointment_time}</p>
                   </div>
                   <span className={`px-2 sm:px-3 py-1 text-xs font-semibold ${
                     appt.status === 'Scheduled' ? 'bg-[#F2F8F5] text-[#001E42]' :
                     appt.status === 'Closed' ? 'bg-[#F2F8F5] text-[#001E42]' :
                     appt.status === 'Cancelled' ? 'bg-[#FCE7EC] text-[#E500BB]' :
                     'bg-[#F4F7FA] text-[#6C7087]'
-                  }`} style={{ fontFamily: "var(--font-open-sans), 'Open Sans', Arial, sans-serif" }}>
+                  }`} style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
                     {appt.status}
                   </span>
                 </div>
