@@ -12,6 +12,7 @@ const ALLOWED_DOCTYPES = [
   'Diagnosis', 'Lab Test Template', 'Appointment Type',
   'Healthcare Service Unit', 'Therapy Plan', 'Therapy Session',
   'Clinical Procedure', 'Procedure Prescription', 'User',
+  'Notification Log',
 ];
 
 function isAllowed(path: string): boolean {

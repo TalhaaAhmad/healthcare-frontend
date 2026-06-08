@@ -28,12 +28,12 @@ export default function DoctorsPage() {
     <div className="space-y-8">
       {/* Hero Header */}
       <div className="text-center space-y-4">
-        <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#FCE7EC] text-[#E500BB] text-[11px] font-bold uppercase tracking-[2px] rounded-full" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
-          <span className="w-1.5 h-1.5 rounded-full bg-[#E500BB]"></span>
+        <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#E8EDF2] text-[#001E42] text-[11px] font-bold uppercase tracking-[2px] rounded-full" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
+          <span className="w-1.5 h-1.5 rounded-full bg-[#001E42]"></span>
           Premium Healthcare
         </span>
         <h1 className="text-2xl sm:text-3xl font-semibold text-[#333333]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
-          Find Your Best <span className="text-[#E500BB]">Specialist</span>
+          Find Your Best <span className="text-[#001E42]">Specialist</span>
         </h1>
         <p className="text-sm text-[#6C7087] max-w-md mx-auto" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
           Book appointments with world-class practitioners and manage your healthcare journey in one place.
@@ -51,7 +51,7 @@ export default function DoctorsPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by doctor name or expertise..."
-            className="w-full pl-10 pr-4 py-3 border border-gray-200 bg-white text-sm text-[#333333] placeholder-[#9CA3AF] focus:outline-none focus:border-[#E500BB] transition-colors"
+            className="w-full pl-10 pr-4 py-3 border border-gray-200 bg-white text-sm text-[#333333] placeholder-[#9CA3AF] focus:outline-none focus:border-[#001E42] transition-colors"
             style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }}
           />
         </div>
@@ -104,7 +104,7 @@ export default function DoctorsPage() {
                 </div>
 
                 {/* Specialty */}
-                <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-[#E500BB] mb-1" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
+                <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-[#001E42] mb-1" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
                   {doctor.department || 'Family Medicine'}
                 </p>
 

@@ -61,7 +61,7 @@ export default function LoginPage() {
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
-            <div className="bg-[#FCE7EC] border border-[#E500BB]/20 text-[#001E42] px-4 py-3 text-sm" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
+            <div className="bg-[#E8EDF2] border border-[#001E42]/20 text-[#001E42] px-4 py-3 text-sm" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
               {error}
             </div>
           )}
@@ -101,7 +101,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex justify-center py-4 px-4 border border-transparent text-xs font-bold uppercase tracking-[2px] text-white bg-[#E500BB] hover:bg-[#c400a0] focus:outline-none disabled:opacity-50 transition-colors"
+            className="w-full flex justify-center py-4 px-4 border border-transparent text-xs font-bold uppercase tracking-[2px] text-white bg-[#001E42] hover:bg-[#002a5c] focus:outline-none disabled:opacity-50 transition-colors"
             style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }}
           >
             {loading ? 'Signing in...' : 'Sign in'}
@@ -111,7 +111,7 @@ export default function LoginPage() {
         <div className="text-center">
           <p className="text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
             Don&apos;t have an account?{' '}
-            <Link href="/register" className="text-[#E500BB] hover:text-[#001E42] font-semibold transition-colors">
+            <Link href="/register" className="text-[#001E42] hover:text-[#002a5c] font-semibold transition-colors">
               Register here
             </Link>
           </p>

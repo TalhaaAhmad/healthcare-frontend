@@ -68,6 +68,17 @@ export default function RegisterPage() {
         return;
       }
 
+      // Trigger registration confirmation notification (fire-and-forget)
+      fetch('/api/notifications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'registration_confirmation',
+          email: form.email,
+          patient_name: `${form.first_name} ${form.last_name}`,
+        }),
+      }).catch(() => { /* notification failure is non-critical */ });
+
       setSuccess(true);
     } catch (err) {
       setError('Network error. Please try again.');
@@ -89,7 +100,7 @@ export default function RegisterPage() {
           <p className="text-sm sm:text-base text-[#666666] mb-6" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Your account has been created. You can now log in.</p>
           <Link
             href="/login"
-            className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-[#E500BB] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#c400a0] transition-colors"
+            className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] transition-colors"
             style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
           >
             Go to Login
@@ -116,7 +127,7 @@ export default function RegisterPage() {
 
         <form className="mt-8 space-y-4" onSubmit={handleSubmit}>
           {error && (
-            <div className="bg-[#FCE7EC] border border-[#E500BB]/20 text-[#001E42] px-4 py-3 text-sm" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>{error}</div>
+            <div className="bg-[#E8EDF2] border border-[#001E42]/20 text-[#001E42] px-4 py-3 text-sm" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>{error}</div>
           )}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -192,7 +203,7 @@ export default function RegisterPage() {
           </div>
 
           <button type="submit" disabled={loading}
-            className="w-full py-4 px-4 border border-transparent text-xs font-bold uppercase tracking-[2px] text-white bg-[#E500BB] hover:bg-[#c400a0] focus:outline-none disabled:opacity-50 transition-colors"
+            className="w-full py-4 px-4 border border-transparent text-xs font-bold uppercase tracking-[2px] text-white bg-[#001E42] hover:bg-[#002a5c] focus:outline-none disabled:opacity-50 transition-colors"
             style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }}>
             {loading ? 'Creating account...' : 'Create Account'}
           </button>
@@ -201,7 +212,7 @@ export default function RegisterPage() {
         <div className="text-center">
           <p className="text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
             Already have an account?{' '}
-            <Link href="/login" className="text-[#E500BB] hover:text-[#001E42] font-semibold transition-colors">Sign in</Link>
+            <Link href="/login" className="text-[#001E42] hover:text-[#002a5c] font-semibold transition-colors">Sign in</Link>
           </p>
         </div>
       </div>

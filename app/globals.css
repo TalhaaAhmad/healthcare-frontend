@@ -7,11 +7,11 @@
 
   /* ZanCenter Theme Colors */
   --zan-navy: #001E42;
-  --zan-magenta: #E500BB;
+  --zan-magenta: #001E42;
   --zan-sky: #2EA3F2;
   --zan-mint: #F2F8F5;
   --zan-peach: #FFF2E2;
-  --zan-pink: #FCE7EC;
+  --zan-pink: #E8EDF2;
   --zan-blue-gray: #F4F7FA;
   --zan-warm-beige: #E0D2B3;
   --zan-footer: #171717;
@@ -29,11 +29,11 @@
 
   /* ZanCenter custom colors */
   --color-zan-navy: #001E42;
-  --color-zan-magenta: #E500BB;
+  --color-zan-magenta: #001E42;
   --color-zan-sky: #2EA3F2;
   --color-zan-mint: #F2F8F5;
   --color-zan-peach: #FFF2E2;
-  --color-zan-pink: #FCE7EC;
+  --color-zan-pink: #E8EDF2;
   --color-zan-blue-gray: #F4F7FA;
   --color-zan-warm-beige: #E0D2B3;
   --color-zan-footer: #171717;
@@ -122,7 +122,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Active nav link */
 .zan-nav-active {
-  color: var(--zan-magenta);
+  color: var(--zan-navy);
   font-weight: 600;
 }
 
@@ -142,6 +142,6 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Selection color */
 ::selection {
-  background-color: var(--zan-magenta);
+  background-color: var(--zan-navy);
   color: #ffffff;
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { Sidebar } from './Sidebar';
+import { NotificationBell } from './NotificationBell';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/lib/auth-context';
 import Link from 'next/link';
@@ -59,7 +60,7 @@ export function PageLayout({ children, sections, portalName }: PageLayoutProps) 
           <div className="flex items-center gap-3">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="lg:hidden w-10 h-10 flex items-center justify-center bg-[#E500BB] text-white shrink-0"
+              className="lg:hidden w-10 h-10 flex items-center justify-center bg-[#001E42] text-white shrink-0"
               aria-label="Toggle menu"
             >
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -78,11 +79,14 @@ export function PageLayout({ children, sections, portalName }: PageLayoutProps) 
             </h1>
           </div>
 
-          {/* Right Side: Book + User */}
+          {/* Right Side: Notifications + Book + User */}
           <div className="flex items-center gap-2 sm:gap-4">
+            {/* Notification Bell */}
+            <NotificationBell />
+
             <Link
               href="/patient/appointments/book"
-              className="px-3 sm:px-4 py-2 bg-[#E500BB] text-white text-[10px] sm:text-[11px] font-bold uppercase tracking-[2px] hover:bg-[#c400a0] transition-colors whitespace-nowrap"
+              className="px-3 sm:px-4 py-2 bg-[#001E42] text-white text-[10px] sm:text-[11px] font-bold uppercase tracking-[2px] hover:bg-[#002a5c] transition-colors whitespace-nowrap"
               style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
             >
               <span className="hidden sm:inline">Book Appointment</span>
@@ -92,7 +96,7 @@ export function PageLayout({ children, sections, portalName }: PageLayoutProps) 
             {/* User Info */}
             <div className="flex items-center gap-2">
               {/* Avatar */}
-              <div className="w-8 h-8 rounded-full bg-[#E500BB] flex items-center justify-center text-white text-xs font-semibold">
+              <div className="w-8 h-8 rounded-full bg-[#001E42] flex items-center justify-center text-white text-xs font-semibold">
                 {getUserInitials(user?.full_name)}
               </div>
               {/* Name */}

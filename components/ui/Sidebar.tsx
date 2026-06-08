@@ -83,15 +83,15 @@ export function Sidebar({ sections, portalName, isOpen, setIsOpen }: SidebarProp
                         onClick={() => setIsOpen(false)}
                         className={`flex items-center gap-3 px-5 py-2.5 text-sm transition-colors relative ${
                           isActive
-                            ? 'text-[#E500BB] font-semibold'
-                            : 'text-[#333333] hover:bg-[#F4F7FA] hover:text-[#E500BB]'
+                            ? 'text-[#001E42] font-semibold'
+                            : 'text-[#333333] hover:bg-[#F4F7FA] hover:text-[#001E42]'
                         }`}
                         style={{
                           fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif",
                         }}
                       >
                         {isActive && (
-                          <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-[#E500BB]" />
+                          <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-[#001E42]" />
                         )}
                         <span className="text-[#6C7087]">{item.icon}</span>
                         <span>{item.label}</span>
@@ -108,7 +108,7 @@ export function Sidebar({ sections, portalName, isOpen, setIsOpen }: SidebarProp
         <div className="px-4 py-4 border-t border-gray-200">
           <button
             onClick={logout}
-            className="w-full px-4 py-2.5 text-xs font-bold uppercase tracking-[2px] text-white bg-[#E500BB] hover:bg-[#c400a0] transition-colors"
+            className="w-full px-4 py-2.5 text-xs font-bold uppercase tracking-[2px] text-white bg-[#001E42] hover:bg-[#002a5c] transition-colors"
             style={{
               fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif",
             }}

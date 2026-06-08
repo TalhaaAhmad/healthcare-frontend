@@ -12,9 +12,9 @@ function PaymentFailedContent() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#F2F8F5] px-4 py-8">
       <div className="max-w-md w-full bg-white border border-gray-100 p-6 sm:p-8 text-center">
-        <div className="mx-auto flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 bg-[#FCE7EC] mb-6">
+        <div className="mx-auto flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 bg-[#E8EDF2] mb-6">
           <svg
-            className="h-8 w-8 text-[#E500BB]"
+            className="h-8 w-8 text-[#001E42]"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -45,7 +45,7 @@ function PaymentFailedContent() {
         <div className="space-y-3">
           <Link
             href="/patient/appointments"
-            className="block w-full px-4 py-2.5 sm:py-3 bg-[#E500BB] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#c400a0] transition-colors"
+            className="block w-full px-4 py-2.5 sm:py-3 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] transition-colors"
             style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
           >
             Try Again

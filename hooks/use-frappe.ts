@@ -278,6 +278,80 @@ export function usePractitionerAppointments(practitionerId: string, date: string
   });
 }
 
+// ─── Notifications ─────────────────────────────────────────────────────────────
+
+export interface ClientNotification {
+  name: string;
+  subject: string;
+  email_content: string;
+  document_type?: string;
+  document_name?: string;
+  type: 'Alert' | 'Mention' | '';
+  read: number;
+  creation: string;
+}
+
+/**
+ * Fetch notifications for the current user with periodic polling.
+ */
+export function useNotifications(email: string | undefined) {
+  return useQuery({
+    queryKey: ['Notifications', email],
+    queryFn: async () => {
+      const res = await fetch(`/api/notifications?email=${encodeURIComponent(email!)}`);
+      if (!res.ok) throw new Error('Failed to fetch notifications');
+      return res.json() as Promise<{ data: ClientNotification[] }>;
+    },
+    enabled: !!email,
+    refetchInterval: 60_000, // poll every 60 seconds
+    staleTime: 30_000,
+  });
+}
+
+/**
+ * Mark a single notification as read.
+ */
+export function useMarkNotificationRead() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (notificationId: string) => {
+      const res = await fetch('/api/notifications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'mark_read', id: notificationId }),
+      });
+      if (!res.ok) throw new Error('Failed to mark notification read');
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['Notifications'] });
+    },
+  });
+}
+
+/**
+ * Mark all notifications for a user as read.
+ */
+export function useMarkAllNotificationsRead() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (email: string) => {
+      const res = await fetch('/api/notifications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'mark_all_read', email }),
+      });
+      if (!res.ok) throw new Error('Failed to mark all notifications read');
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['Notifications'] });
+    },
+  });
+}
+
 // PayFast payment hook
 export function usePayFastPayment() {
   const [isLoading, setIsLoading] = useState(false);
