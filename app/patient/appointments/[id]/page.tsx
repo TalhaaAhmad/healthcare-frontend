@@ -146,7 +146,7 @@ export default function AppointmentDetail() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0">
         <div>
-          <Link href="/patient/appointments" className="text-sm text-[#E500BB] hover:text-[#001E42] font-semibold transition-colors" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
+          <Link href="/patient/appointments" className="text-sm text-[#001E42] hover:text-[#002a5c] font-semibold transition-colors" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
             &larr; Back to Appointments
           </Link>
         </div>
@@ -155,7 +155,7 @@ export default function AppointmentDetail() {
             <>
               <button
                 onClick={() => setShowReschedule(!showReschedule)}
-                className="px-3 sm:px-4 py-2 bg-[#E500BB] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#c400a0] transition-colors"
+                className="px-3 sm:px-4 py-2 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] transition-colors"
                 style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
               >
                 Reschedule
@@ -163,7 +163,7 @@ export default function AppointmentDetail() {
               <button
                 onClick={handleCancel}
                 disabled={updateAppointment.isPending}
-                className="px-3 sm:px-4 py-2 bg-[#FCE7EC] text-[#E500BB] text-xs font-bold uppercase tracking-[2px] hover:bg-[#E500BB] hover:text-white transition-colors disabled:opacity-50"
+                className="px-3 sm:px-4 py-2 bg-[#E8EDF2] text-[#001E42] text-xs font-bold uppercase tracking-[2px] hover:bg-[#001E42] hover:text-white transition-colors disabled:opacity-50"
                 style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
               >
                 {updateAppointment.isPending ? 'Cancelling...' : 'Cancel'}
@@ -173,7 +173,7 @@ export default function AppointmentDetail() {
           <span className={`px-2 sm:px-3 py-1 text-xs font-semibold ${
             appointment.status === 'Scheduled' ? 'bg-[#F2F8F5] text-[#001E42]' :
             appointment.status === 'Closed' ? 'bg-[#F2F8F5] text-[#001E42]' :
-            appointment.status === 'Cancelled' ? 'bg-[#FCE7EC] text-[#E500BB]' :
+            appointment.status === 'Cancelled' ? 'bg-[#E8EDF2] text-[#001E42]' :
             'bg-[#F4F7FA] text-[#6C7087]'
           }`} style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>{appointment.status}</span>
         </div>
@@ -211,7 +211,7 @@ export default function AppointmentDetail() {
               <button
                 type="submit"
                 disabled={updateAppointment.isPending}
-                className="px-3 sm:px-4 py-2 bg-[#E500BB] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#c400a0] disabled:opacity-50 transition-colors"
+                className="px-3 sm:px-4 py-2 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] disabled:opacity-50 transition-colors"
                 style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
               >
                 {updateAppointment.isPending ? 'Saving...' : 'Confirm'}

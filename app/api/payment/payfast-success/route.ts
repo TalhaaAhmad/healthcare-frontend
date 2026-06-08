@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getFrappeServerClient } from '@/lib/frappe-client';
 import { getPendingPayment, removePendingPayment } from '@/lib/payment-store';
+import {
+  notifyAppointmentBooked,
+  notifyPaymentConfirmed,
+  notifyDoctorNewAppointment,
+} from '@/lib/notifications';
 
 const MERCHANT_ID = process.env.PAYFAST_MERCHANT_ID!;
 const SECURED_KEY = process.env.PAYFAST_SECURED_KEY!;
@@ -148,6 +153,34 @@ export async function GET(request: NextRequest) {
       throw new Error('Failed to create Patient Appointment');
     }
 
+    // ── Notification: Appointment booking confirmation (patient) + New booking alert (doctor) ──
+    // Look up patient email for notification
+    let patientEmail = '';
+    try {
+      const patientRes = await frappe.get(`/resource/Patient/${patient}`);
+      patientEmail = patientRes.data?.data?.email || patientRes.data?.data?.user_id || '';
+    } catch { /* non-critical */ }
+
+    // Look up doctor email for notification
+    let doctorEmail = '';
+    try {
+      const pracRes = await frappe.get(`/resource/Healthcare Practitioner/${practitioner}`);
+      doctorEmail = pracRes.data?.data?.user_id || pracRes.data?.data?.email || '';
+    } catch { /* non-critical */ }
+
+    // Fire appointment booked notification for patient + doctor
+    notifyAppointmentBooked(
+      patientEmail, appointmentId, practitioner_name || '', department || '',
+      appointment_date || '', appointment_time || ''
+    ).catch(() => {});
+
+    if (doctorEmail) {
+      notifyDoctorNewAppointment(
+        doctorEmail, appointmentId, patient_name || '', department || '',
+        appointment_date || '', appointment_time || ''
+      ).catch(() => {});
+    }
+
     // 2. Fetch practitioner's consultation item code
     let consultationItemCode = 'CN-1';
     try {
@@ -239,6 +272,11 @@ export async function GET(request: NextRequest) {
 
     // Clean up pending payment data
     await removePendingPayment(basketId);
+
+    // ── Notification: Payment confirmation ──
+    notifyPaymentConfirmed(
+      patientEmail, amount || 0, appointmentId, transactionId
+    ).catch(() => {});
 
     // Redirect to appointment detail page
     return NextResponse.redirect(

@@ -18,7 +18,7 @@ function getStatusStyle(status: string) {
     case 'Open':
       return 'bg-[#FFF3E0] text-[#E65100] border border-[#E65100]';
     case 'Cancelled':
-      return 'bg-[#FCE7EC] text-[#E500BB] border border-[#E500BB]';
+      return 'bg-[#E8EDF2] text-[#001E42] border border-[#001E42]';
     case 'Closed':
       return 'bg-[#F2F8F5] text-[#001E42] border border-[#001E42]';
     default:

@@ -22,14 +22,14 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
                 <Link
                   href="/login"
-                  className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-[#E500BB] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#c400a0] transition-colors"
+                  className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] transition-colors"
                   style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
                 >
                   Patient Login
                 </Link>
                 <Link
                   href="/register"
-                  className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-white text-[#E500BB] text-xs font-bold uppercase tracking-[2px] border border-[#E500BB] hover:bg-[#E500BB] hover:text-white transition-colors"
+                  className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-white text-[#001E42] text-xs font-bold uppercase tracking-[2px] border border-[#001E42] hover:bg-[#001E42] hover:text-white transition-colors"
                   style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
                 >
                   Register
@@ -38,7 +38,7 @@ export default function Home() {
             </div>
             <div className="flex justify-center lg:justify-end">
               <div className="relative">
-                <div className="w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96 bg-[#FCE7EC] absolute -top-3 sm:-top-4 -right-3 sm:-right-4"></div>
+                <div className="w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96 bg-[#E8EDF2] absolute -top-3 sm:-top-4 -right-3 sm:-right-4"></div>
                 <div className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96 bg-[#FFF2E2] flex items-center justify-center p-6">
                   <Image
                     src="/logo.png"
@@ -68,7 +68,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-0">
             <div className="bg-[#F2F8F5] p-6 sm:p-8 text-center">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 bg-[#E500BB] flex items-center justify-center">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 bg-[#001E42] flex items-center justify-center">
                 <svg className="w-7 h-7 sm:w-8 sm:h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
@@ -81,7 +81,7 @@ export default function Home() {
               </p>
             </div>
             <div className="bg-[#F4F7FA] p-6 sm:p-8 text-center">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 bg-[#E500BB] flex items-center justify-center">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 bg-[#001E42] flex items-center justify-center">
                 <svg className="w-7 h-7 sm:w-8 sm:h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
@@ -94,7 +94,7 @@ export default function Home() {
               </p>
             </div>
             <div className="bg-[#FFF2E2] p-6 sm:p-8 text-center">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 bg-[#E500BB] flex items-center justify-center">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 bg-[#001E42] flex items-center justify-center">
                 <svg className="w-7 h-7 sm:w-8 sm:h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
@@ -111,7 +111,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-[#FCE7EC]">
+      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-[#E8EDF2]">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#333333] mb-4" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
             Ready to Take Charge of Your Health?
@@ -121,7 +121,7 @@ export default function Home() {
           </p>
           <Link
             href="/register"
-            className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-[#E500BB] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#c400a0] transition-colors"
+            className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] transition-colors"
             style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
           >
             Get Started Today

@@ -47,7 +47,7 @@ export default function PatientDashboard() {
   return (
     <div className="space-y-6">
       {error && (
-        <div className="bg-[#FCE7EC] border border-[#E500BB]/20 text-[#001E42] px-4 py-3 text-sm" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
+        <div className="bg-[#E8EDF2] border border-[#001E42]/20 text-[#001E42] px-4 py-3 text-sm" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
           Failed to load appointments. Please try again later.
         </div>
       )}
@@ -59,7 +59,7 @@ export default function PatientDashboard() {
         </div>
         <div className="bg-white p-4 sm:p-6 border border-gray-100">
           <p className="text-xs sm:text-sm font-medium text-[#6C7087]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Total Appointments</p>
-          <p className="mt-2 text-2xl sm:text-3xl font-semibold text-[#E500BB]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>{appointments.length}</p>
+          <p className="mt-2 text-2xl sm:text-3xl font-semibold text-[#001E42]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>{appointments.length}</p>
         </div>
         <div className="bg-white p-4 sm:p-6 border border-gray-100 sm:col-span-2 md:col-span-1">
           <p className="text-xs sm:text-sm font-medium text-[#6C7087]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>Next Visit</p>
@@ -85,7 +85,7 @@ export default function PatientDashboard() {
                   <p className="font-medium text-sm sm:text-base text-[#333333]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>{appt.practitioner_name}</p>
                   <p className="text-xs sm:text-sm text-[#6C7087]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>{appt.department}</p>
                   {appt.patient_name && appt.patient_name !== user?.full_name && (
-                    <p className="text-xs text-[#E500BB] font-medium mt-0.5" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>for {appt.patient_name}</p>
+                    <p className="text-xs text-[#001E42] font-medium mt-0.5" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>for {appt.patient_name}</p>
                   )}
                 </div>
                 <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-6">
@@ -96,7 +96,7 @@ export default function PatientDashboard() {
                   <span className={`px-2 sm:px-3 py-1 text-xs font-semibold ${
                     appt.status === 'Scheduled' ? 'bg-[#F2F8F5] text-[#001E42]' :
                     appt.status === 'Closed' ? 'bg-[#F2F8F5] text-[#001E42]' :
-                    appt.status === 'Cancelled' ? 'bg-[#FCE7EC] text-[#E500BB]' :
+                    appt.status === 'Cancelled' ? 'bg-[#E8EDF2] text-[#001E42]' :
                     'bg-[#F4F7FA] text-[#6C7087]'
                   }`} style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
                     {appt.status}

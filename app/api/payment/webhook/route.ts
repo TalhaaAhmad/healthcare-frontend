@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { getFrappeServerClient } from '@/lib/frappe-client';
+import { notifyPaymentConfirmed } from '@/lib/notifications';
 
 const stripe = process.env.STRIPE_SECRET_KEY
   ? new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2026-04-22.dahlia' })
@@ -35,7 +36,7 @@ export async function POST(request: NextRequest) {
 
   if (event.type === 'payment_intent.succeeded') {
     const paymentIntent = event.data.object as Stripe.PaymentIntent;
-    const { invoice_id, patient_id } = paymentIntent.metadata;
+    const { invoice_id, patient_id, appointment_id } = paymentIntent.metadata;
 
     // Create Payment Entry in Frappe
     await getFrappeServerClient().post('/resource/Payment Entry', {
@@ -57,6 +58,21 @@ export async function POST(request: NextRequest) {
     await getFrappeServerClient().put(`/resource/Sales Invoice/${invoice_id}`, {
       status: 'Paid'
     });
+
+    // ── Notification: Payment confirmation ──
+    try {
+      const frappe = getFrappeServerClient();
+      const patRes = await frappe.get(`/resource/Patient/${patient_id}`);
+      const patientEmail = patRes.data?.data?.email || patRes.data?.data?.user_id || '';
+      if (patientEmail && appointment_id) {
+        notifyPaymentConfirmed(
+          patientEmail,
+          paymentIntent.amount / 100,
+          appointment_id,
+          paymentIntent.id
+        ).catch(() => {});
+      }
+    } catch { /* non-critical */ }
   }
 
   return NextResponse.json({ received: true });

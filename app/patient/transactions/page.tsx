@@ -53,7 +53,7 @@ export default function TransactionHistory() {
                       {tx.department} | {tx.type}
                     </p>
                     {tx.patient_name && tx.patient_name !== user?.full_name && (
-                      <p className="text-xs text-[#E500BB] font-medium mt-0.5" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>for {tx.patient_name}</p>
+                      <p className="text-xs text-[#001E42] font-medium mt-0.5" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>for {tx.patient_name}</p>
                     )}
                   </div>
                   <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-6">
@@ -72,7 +72,7 @@ export default function TransactionHistory() {
                           : tx.status === 'Closed'
                           ? 'bg-[#F2F8F5] text-[#001E42]'
                           : tx.status === 'Cancelled'
-                          ? 'bg-[#FCE7EC] text-[#E500BB]'
+                          ? 'bg-[#E8EDF2] text-[#001E42]'
                           : 'bg-[#F4F7FA] text-[#6C7087]'
                       }`}
                       style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}

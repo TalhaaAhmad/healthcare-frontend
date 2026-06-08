@@ -48,8 +48,8 @@ export function Navbar({ items, portalName }: NavbarProps) {
                 href={item.href}
                 className={`px-3 py-2 text-sm font-semibold transition-colors ${
                   pathname === item.href
-                    ? 'text-[#E500BB]'
-                    : 'text-[#000000] hover:text-[#E500BB]'
+                    ? 'text-[#001E42]'
+                    : 'text-[#000000] hover:text-[#001E42]'
                 }`}
                 style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", fontSize: '14px' }}
               >
@@ -58,7 +58,7 @@ export function Navbar({ items, portalName }: NavbarProps) {
             ))}
             <button
               onClick={logout}
-              className="ml-3 px-4 py-2 text-xs font-bold uppercase tracking-[2px] text-white bg-[#E500BB] hover:bg-[#c400a0] transition-colors"
+              className="ml-3 px-4 py-2 text-xs font-bold uppercase tracking-[2px] text-white bg-[#001E42] hover:bg-[#002a5c] transition-colors"
               style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
             >
               Logout

@@ -240,12 +240,12 @@ export default function BookAppointmentPage() {
       <div className="space-y-8">
         {/* Hero Header */}
         <div className="text-center space-y-4">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#FCE7EC] text-[#E500BB] text-[11px] font-bold uppercase tracking-[2px] rounded-full" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#E500BB]"></span>
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#E8EDF2] text-[#001E42] text-[11px] font-bold uppercase tracking-[2px] rounded-full" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#001E42]"></span>
             Premium Healthcare
           </span>
           <h1 className="text-2xl sm:text-3xl font-semibold text-[#333333]" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
-            Find Your Best <span className="text-[#E500BB]">Specialist</span>
+            Find Your Best <span className="text-[#001E42]">Specialist</span>
           </h1>
           <p className="text-sm text-[#6C7087] max-w-md mx-auto" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
             Book appointments with world-class practitioners and manage your healthcare journey in one place.
@@ -261,7 +261,7 @@ export default function BookAppointmentPage() {
             <input
               type="text"
               placeholder="Search by doctor name or expertise..."
-              className="w-full pl-10 pr-4 py-3 border border-gray-200 bg-white text-sm text-[#333333] placeholder-[#9CA3AF] focus:outline-none focus:border-[#E500BB] transition-colors"
+              className="w-full pl-10 pr-4 py-3 border border-gray-200 bg-white text-sm text-[#333333] placeholder-[#9CA3AF] focus:outline-none focus:border-[#001E42] transition-colors"
               style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif", borderRadius: 0 }}
             />
           </div>
@@ -320,7 +320,7 @@ export default function BookAppointmentPage() {
                   </div>
 
                   {/* Specialty */}
-                  <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-[#E500BB] mb-1" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
+                  <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-[#001E42] mb-1" style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}>
                     {doctor.department || 'Family Medicine'}
                   </p>
 
@@ -425,7 +425,7 @@ export default function BookAppointmentPage() {
           <div className="lg:col-span-3 space-y-6">
             {/* Doctor Info */}
             <div className="flex items-center gap-3">
-              <div className="h-12 w-12 bg-[#E500BB] rounded-lg flex items-center justify-center text-white text-lg font-semibold shrink-0">
+              <div className="h-12 w-12 bg-[#001E42] rounded-lg flex items-center justify-center text-white text-lg font-semibold shrink-0">
                 {form.practitioner_name ? form.practitioner_name.charAt(0).toUpperCase() : 'D'}
               </div>
               <div>
@@ -649,9 +649,9 @@ export default function BookAppointmentPage() {
                       disabled={isPast}
                       className={`h-10 w-10 mx-auto flex items-center justify-center text-sm font-medium transition-colors ${
                         isSelected
-                          ? 'bg-[#E500BB] text-white rounded-full'
+                          ? 'bg-[#001E42] text-white rounded-full'
                           : isToday
-                          ? 'text-[#E500BB]'
+                          ? 'text-[#001E42]'
                           : isPast
                           ? 'text-gray-300 cursor-not-allowed'
                           : 'text-[#333333] hover:bg-gray-100'
@@ -689,8 +689,8 @@ export default function BookAppointmentPage() {
                               onClick={() => setForm({ ...form, appointment_time: slot.from_time })}
                               className={`px-3 py-2 text-sm border transition-colors ${
                                 form.appointment_time === slot.from_time
-                                  ? 'bg-[#E500BB] text-white border-[#E500BB]'
-                                  : 'bg-white text-[#333333] border-gray-200 hover:border-[#E500BB]'
+                                  ? 'bg-[#001E42] text-white border-[#001E42]'
+                                  : 'bg-white text-[#333333] border-gray-200 hover:border-[#001E42]'
                               }`}
                               style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
                             >
@@ -713,8 +713,8 @@ export default function BookAppointmentPage() {
                               onClick={() => setForm({ ...form, appointment_time: slot.from_time })}
                               className={`px-3 py-2 text-sm border transition-colors ${
                                 form.appointment_time === slot.from_time
-                                  ? 'bg-[#E500BB] text-white border-[#E500BB]'
-                                  : 'bg-white text-[#333333] border-gray-200 hover:border-[#E500BB]'
+                                  ? 'bg-[#001E42] text-white border-[#001E42]'
+                                  : 'bg-white text-[#333333] border-gray-200 hover:border-[#001E42]'
                               }`}
                               style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
                             >
@@ -765,7 +765,7 @@ export default function BookAppointmentPage() {
               (form.patient_type === 'relative' &&
                 (!relative.first_name || !relative.last_name || !relative.dob || !relative.mobile))
             }
-            className="px-6 py-3 bg-[#E500BB] text-white text-xs font-bold uppercase tracking-[2px] border border-[#E500BB] hover:bg-[#c400a0] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            className="px-6 py-3 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] border border-[#001E42] hover:bg-[#002a5c] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
             style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
           >
             Book Slot

@@ -100,7 +100,7 @@ export default function PaymentSummary({
           type="button"
           onClick={onPay}
           disabled={isLoading}
-          className="flex-1 px-4 py-3 bg-[#E500BB] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#c400a0] disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
+          className="flex-1 px-4 py-3 bg-[#001E42] text-white text-xs font-bold uppercase tracking-[2px] hover:bg-[#002a5c] disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
           style={{ fontFamily: "var(--font-inter), 'Inter', Arial, sans-serif" }}
         >
           {isLoading ? (
