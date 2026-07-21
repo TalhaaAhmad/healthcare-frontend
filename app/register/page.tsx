@@ -29,58 +29,21 @@ export default function RegisterPage() {
     setError('');
 
     try {
-      // 1. Create User first (with password)
-      const userRes = await fetch('/api/frappe/resource/User', {
+      const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: form.email,
-          first_name: form.first_name,
-          last_name: form.last_name,
-          send_welcome_email: 0,
-          user_type: 'Website User',
-          roles: [{ role: 'Patient' }],
-          new_password: form.password,
-        }),
+        body: JSON.stringify(form),
       });
 
-      if (!userRes.ok && userRes.status !== 409) {
-        const err = await userRes.json();
-        setError(err.error || 'User creation failed');
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || 'Registration failed');
         return;
       }
-
-      // 2. Create Patient linked to the User
-      const patientRes = await fetch('/api/frappe/resource/Patient', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...form,
-          patient_name: `${form.first_name} ${form.last_name}`,
-          status: 'Active',
-          user_id: form.email,
-        }),
-      });
-
-      if (!patientRes.ok) {
-        const err = await patientRes.json();
-        setError(err.error || 'Registration failed');
-        return;
-      }
-
-      // Trigger registration confirmation notification (fire-and-forget)
-      fetch('/api/notifications', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'registration_confirmation',
-          email: form.email,
-          patient_name: `${form.first_name} ${form.last_name}`,
-        }),
-      }).catch(() => { /* notification failure is non-critical */ });
 
       setSuccess(true);
-    } catch (err) {
+    } catch {
       setError('Network error. Please try again.');
     } finally {
       setLoading(false);
