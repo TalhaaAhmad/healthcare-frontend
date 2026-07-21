@@ -42,6 +42,23 @@ export default function PatientProfile() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!patientId) return;
+
+    // Ensure email and mobile stay unique across patients
+    const uniqueRes = await fetch('/api/patient/validate-unique', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: form.email,
+        mobile: form.mobile,
+        excludePatientId: patientId,
+      }),
+    });
+    const uniqueData = await uniqueRes.json();
+    if (!uniqueRes.ok) {
+      alert(uniqueData.error || 'Email or mobile number is already in use.');
+      return;
+    }
+
     await updatePatient.mutateAsync({ name: patientId, data: form });
     setIsEditing(false);
   }
